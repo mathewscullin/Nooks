@@ -8,21 +8,38 @@
 
 import Foundation
 
+public enum Area : String {
+    case north = "North"
+    case central = "Central"
+    case west = "West"
+    case agquad = "AG Quad"
+    case unkown = ""
+}
+struct Location {
+    var place : Area
+    var lat : String
+    var long : String
+}
+
 class Library {
     
     var name : String
     var image : String
     var state : Bool
     var hours : String
-    var location: String
+    var location: Location
+    var nooks: String
+    var services: String
     var isFavorite: Bool
     
-    init(name : String, image: String, state: Bool, hours: String, location: String, favorite: Bool) {
+    init(name : String, image: String, state: Bool, hours: String, location: Location, favorite: Bool, nooks: String, services : String) {
         self.name = name
         self.image = image
         self.state = state
         self.hours = hours
         isFavorite = favorite
         self.location = location
+        self.nooks = nooks
+        self.services = services
     }
 }

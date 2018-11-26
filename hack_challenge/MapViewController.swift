@@ -7,12 +7,11 @@
 //
 
 import UIKit
-import GoogleMaps
 import MapKit
 import CoreLocation
 import SnapKit
 
-let olinLibraryLocation = CLLocation(latitude: 42.448078,longitude: -76.484291)
+let olinLibraryLocation = CLLocation(latitude: 42.448078, longitude: -76.484291)
 
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     

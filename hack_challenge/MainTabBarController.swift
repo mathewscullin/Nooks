@@ -16,7 +16,7 @@ class MainTabBarController: UITabBarController  {
     var favorites: UIButton!
     
     var librariesArray: [Library]! = []
-    var favoriteLibrariesArray: [Library]! = []
+    var favoritesLibrariesArray: [Library]! = []
     
     let padding : CGFloat = 10
     
@@ -34,7 +34,7 @@ class MainTabBarController: UITabBarController  {
         
         let homeController = createNavContoller(vc: HomeViewController(), selectedImage: #imageLiteral(resourceName: "home_full"), unselectedImage: #imageLiteral(resourceName: "home_white"))
         let mapController = createNavContoller(vc: MapViewController(libraries: librariesArray), selectedImage: #imageLiteral(resourceName: "map_full"), unselectedImage: #imageLiteral(resourceName: "map_white"))
-        let favoriteController = createNavContoller(vc: FavoritesViewController(favLibraries: favoriteLibrariesArray), selectedImage: #imageLiteral(resourceName: "heart_full"), unselectedImage: #imageLiteral(resourceName: "heart_white"))
+        let favoriteController = createNavContoller(vc: FavoritesViewController(favLibraries: favoritesLibrariesArray), selectedImage: #imageLiteral(resourceName: "heart_full"), unselectedImage: #imageLiteral(resourceName: "heart_white"))
         
         viewControllers = [homeController, mapController, favoriteController]
         

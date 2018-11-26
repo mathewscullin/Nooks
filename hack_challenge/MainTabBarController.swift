@@ -14,13 +14,17 @@ class MainTabBarController: UITabBarController  {
     var explore : UIButton!
     var map: UIButton!
     var favorites: UIButton!
+    
+    var librariesArray: [Library]! = []
+    var favoriteLibrariesArray: [Library]! = []
+    
     let padding : CGFloat = 10
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tabBar.barTintColor = UIColor(red: 38/255, green: 196/255, blue: 133/255, alpha: 1)
-        tabBar.unselectedItemTintColor = .white
+        //tabBar.unselectedItemTintColor = .white
         tabBar.shadowImage = UIImage()
         
         setUpTabBar()
@@ -28,14 +32,9 @@ class MainTabBarController: UITabBarController  {
     
     func setUpTabBar() {
         
-        let homeController = UINavigationController(rootViewController: HomeViewController())
-        homeController.tabBarItem.image = UIImage(named: "home_white")
-        
-        let mapController = UINavigationController(rootViewController: MapViewController())
-        mapController.tabBarItem.image = UIImage(named: "map_white")
-        
-        let favoriteController = UINavigationController(rootViewController: FavoritesViewController())
-        favoriteController.tabBarItem.image = UIImage(named: "heart_white")
+        let homeController = createNavContoller(vc: HomeViewController(), selectedImage: #imageLiteral(resourceName: "home_full"), unselectedImage: #imageLiteral(resourceName: "home_white"))
+        let mapController = createNavContoller(vc: MapViewController(libraries: librariesArray), selectedImage: #imageLiteral(resourceName: "map_full"), unselectedImage: #imageLiteral(resourceName: "map_white"))
+        let favoriteController = createNavContoller(vc: FavoritesViewController(favLibraries: favoriteLibrariesArray), selectedImage: #imageLiteral(resourceName: "heart_full"), unselectedImage: #imageLiteral(resourceName: "heart_white"))
         
         viewControllers = [homeController, mapController, favoriteController]
         
@@ -46,8 +45,16 @@ class MainTabBarController: UITabBarController  {
         }
         
     }
-    
+}
 
-
+extension UITabBarController {
+    func createNavContoller(vc : UIViewController, selectedImage: UIImage, unselectedImage: UIImage) -> UINavigationController {
+        let viewContoller = vc
+        let navController = UINavigationController(rootViewController: viewContoller)
+        navController.tabBarItem.image = unselectedImage
+        navController.tabBarItem.selectedImage = selectedImage
+        
+        return navController
+    }
 }
 

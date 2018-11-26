@@ -22,9 +22,9 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let olin = Library(name: "Olin Library", image: "olin", state: "Open", hours: " | Closes at 2 AM", location: "Central", favorite: false)
-        let uris = Library(name: "Uris Library", image: "uris", state: "Open", hours: " | Closes at 12 AM", location: "Central", favorite: false)
-        let mann = Library(name: "Mann Library", image: "mann", state: "Open", hours: " | Closes at 11 PM", location: "AG Quad", favorite: false)
+        let olin = Library(name: "Olin Library", image: "olin", state: true, hours: " | Closes at 2 AM", location: "Central", favorite: false)
+        let uris = Library(name: "Uris Library", image: "uris", state: true, hours: " | Closes at 12 AM", location: "Central", favorite: false)
+        let mann = Library(name: "Mann Library", image: "mann", state: false, hours: " | Closes at 11 PM", location: "AG Quad", favorite: false)
         librariesArray = [olin, uris, mann]
 
         view.backgroundColor = .white

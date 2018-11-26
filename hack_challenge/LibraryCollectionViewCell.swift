@@ -51,7 +51,6 @@ class LibraryCollectionViewCell: UICollectionViewCell {
         status.translatesAutoresizingMaskIntoConstraints = false
         status.textAlignment = .left
         status.font = .systemFont(ofSize: 18, weight: .regular)
-        status.textColor = green
         contentView.addSubview(status)
         
         hours = UILabel()
@@ -70,7 +69,7 @@ class LibraryCollectionViewCell: UICollectionViewCell {
             image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
             ])
         NSLayoutConstraint.activate([
-            name.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            name.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             name.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 10)
             ])
         NSLayoutConstraint.activate([
@@ -82,7 +81,7 @@ class LibraryCollectionViewCell: UICollectionViewCell {
             hours.leadingAnchor.constraint(equalTo: status.trailingAnchor)
             ])
         NSLayoutConstraint.activate([
-            favorite.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            favorite.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             favorite.leadingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40)
             ])
         
@@ -92,7 +91,14 @@ class LibraryCollectionViewCell: UICollectionViewCell {
     func configure(for library: Library) {
         image.image = UIImage(named: library.image)
         name.text = library.name
-        status.text = library.state
+        if(library.state) {
+           status.text = "Open"
+           status.textColor = green
+        }
+        else {
+            status.text = "Closed"
+            status.textColor = .red
+        }
         hours.text = library.hours
         
     }

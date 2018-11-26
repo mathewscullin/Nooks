@@ -13,12 +13,14 @@ import SnapKit
 
 let olinLibraryLocation = CLLocation(latitude: 42.448078, longitude: -76.484291)
 
+
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     var libraries : [Library]
     let mapView: MKMapView
     var locationManager: CLLocationManager!
     var userLocation: CLLocation?
+    var libraryAnnotations : [MKPointAnnotation] = []
     
     var defaultCoordinate: CLLocationCoordinate2D {
         return locationManager.location?.coordinate ?? olinLibraryLocation.coordinate
@@ -74,14 +76,35 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         mapView.showsBuildings = true
         mapView.showsUserLocation = true
         view.addSubview(mapView)
+        
         mapView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     
-        let span = MKCoordinateSpan(latitudeDelta: 0.015, longitudeDelta: 0.015)
+        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         let region = MKCoordinateRegion(center: defaultCoordinate, span: span)
         mapView.setRegion(region, animated: true)
         
+        mapEateries(libraries)
+        
+    }
+    
+    func mapEateries(_ libraries: [Library]) {
+        self.libraries = libraries
+        
+        for library in libraries {
+            let annotationTitle = library.name
+            let libraryAnnotation = MKPointAnnotation()
+            libraryAnnotation.coordinate = library.location.coordinates
+            libraryAnnotation.title = annotationTitle
+            libraryAnnotation.subtitle = library.isOpen ? "Open" : "Closed"
+            mapView.addAnnotation(libraryAnnotation)
+            libraryAnnotations.append(libraryAnnotation)
+        }
+        
+        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        let region = MKCoordinateRegion(center: defaultCoordinate, span: span)
+        mapView.setRegion(region, animated: true)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -96,8 +119,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         fatalError("init(coder:) has not been implemented")
     }
     
+   /* func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        let newViewController = LibraryViewController(library: libraries[libraryAnnotations.index(of: view.annotation as! MKPointAnnotation) ?? 0], delegate: nil, userLocation: userLocation)
+        self.navigationController?.pushViewController(newViewController, animated: true)
+    } */
 
-    /*
+    /*0
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

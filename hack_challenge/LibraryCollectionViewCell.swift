@@ -50,13 +50,13 @@ class LibraryCollectionViewCell: UICollectionViewCell {
         status = UILabel()
         status.translatesAutoresizingMaskIntoConstraints = false
         status.textAlignment = .left
-        status.font = .systemFont(ofSize: 18, weight: .regular)
+        status.font = .systemFont(ofSize: 16, weight: .regular)
         contentView.addSubview(status)
         
         hours = UILabel()
         hours.translatesAutoresizingMaskIntoConstraints = false
         hours.textAlignment = .left
-        hours.font = .systemFont(ofSize: 18, weight: .regular)
+        hours.font = .systemFont(ofSize: 16, weight: .regular)
         hours.textColor = .black
         contentView.addSubview(hours)
     }
@@ -91,11 +91,15 @@ class LibraryCollectionViewCell: UICollectionViewCell {
     func configure(for library: Library) {
         image.image = UIImage(named: library.image)
         name.text = library.name
-        if(library.state) {
-           status.text = "Open"
-           status.textColor = green
+        if(library.isOpen) {
+            status.text = "Open"
+            status.textColor = green
         }
-        else {
+        if(library.isClosing) {
+            status.text = "Closing Soon"
+            status.textColor = UIColor(red: 255/255, green: 215/255, blue: 0, alpha: 1)
+        }
+        if(!library.isOpen){
             status.text = "Closed"
             status.textColor = .red
         }

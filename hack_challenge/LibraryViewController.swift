@@ -9,12 +9,20 @@
 import UIKit
 
 class LibraryViewController: UIViewController {
+    
+    var library : Library
+    
     var coverImage : UIImageView!
     var isFavorite : UIImageView!
     var header : UILabel!
     var hours : UILabel!
     var hoursTable: UITableView!
     var features : UIScrollView!
+    
+    init(library : Library) {
+        self.library = library
+        super.init(nibName: nil, bundle: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +83,12 @@ class LibraryViewController: UIViewController {
    override func willMove(toParent parent: UIViewController?) {
         self.navigationController?.navigationBar.prefersLargeTitles = true
     }
+    
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
 
     /*

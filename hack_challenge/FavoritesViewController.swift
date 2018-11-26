@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import SnapKit
 
 class FavoritesViewController: UIViewController {
     
     var favLibraries : [Library]
     var empty : UILabel!
+    var house : UIImageView!
     
     init(favLibraries favoriteLibraries : [Library]) {
         self.favLibraries = favoriteLibraries
@@ -26,6 +28,41 @@ class FavoritesViewController: UIViewController {
         navigationItem.title = "Your Favorites"
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.shadowImage = UIImage()
+        
+        empty = UILabel()
+        empty.translatesAutoresizingMaskIntoConstraints = false
+        empty.textColor = .lightGray
+        empty.font = .systemFont(ofSize: 16, weight: .regular)
+        empty.text = ""
+        empty.textAlignment = .center
+        view.addSubview(empty)
+        
+        house = UIImageView()
+        house.translatesAutoresizingMaskIntoConstraints = false
+        house.image = UIImage()
+        house.contentMode = .scaleAspectFit
+        view.addSubview(house)
+        
+        if(favLibraries.isEmpty) {
+            empty.text = "You have no favorites! Add some in"
+            house.image = #imageLiteral(resourceName: "home_gray")
+        }
+        
+        setUpConstraints()
+    }
+    
+    func setUpConstraints() {
+        NSLayoutConstraint.activate([
+            empty.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -30),
+            empty.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            ])
+        NSLayoutConstraint.activate([
+            house.topAnchor.constraint(equalTo: empty.bottomAnchor, constant: 10),
+            house.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            house.heightAnchor.constraint(equalToConstant: 30),
+            house.widthAnchor.constraint(equalToConstant: 30)
+            ])
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

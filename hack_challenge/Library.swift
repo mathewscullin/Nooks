@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MapKit
 
 public enum Area : String {
     case north = "North"
@@ -17,25 +18,26 @@ public enum Area : String {
 }
 struct Location {
     var place : Area
-    var lat : String
-    var long : String
+    var coordinates : CLLocationCoordinate2D
 }
 
 class Library {
     
     var name : String
     var image : String
-    var state : Bool
+    var isOpen : Bool
+    var isClosing : Bool
     var hours : String
     var location: Location
     var nooks: String
     var services: String
     var isFavorite: Bool
     
-    init(name : String, image: String, state: Bool, hours: String, location: Location, favorite: Bool, nooks: String, services : String) {
+    init(name : String, image: String, isOpen: Bool, isClosing: Bool, hours: String, location: Location, favorite: Bool, nooks: String, services : String) {
         self.name = name
         self.image = image
-        self.state = state
+        self.isOpen = isOpen
+        self.isClosing = isClosing
         self.hours = hours
         isFavorite = favorite
         self.location = location

@@ -53,7 +53,7 @@ class FavoritesViewController: UIViewController {
     
     func setUpConstraints() {
         NSLayoutConstraint.activate([
-            empty.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -30),
+            empty.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20),
             empty.centerXAnchor.constraint(equalTo: view.centerXAnchor)
             ])
         NSLayoutConstraint.activate([

@@ -11,7 +11,7 @@ import UIKit
 class LibraryCollectionViewCell: UICollectionViewCell {
     
     var image: UIImageView!
-    var favorite: UIImageView!
+    var favorite: UIButton!
     var name: UILabel!
     var status: UILabel!
     var hours: UILabel!
@@ -33,11 +33,12 @@ class LibraryCollectionViewCell: UICollectionViewCell {
         image.clipsToBounds = true
         contentView.addSubview(image)
         
-        favorite = UIImageView(frame: .zero)
-        favorite.image = UIImage(named: "notFavorite")
+        favorite = UIButton()
         favorite.translatesAutoresizingMaskIntoConstraints = false
+        favorite.setImage(#imageLiteral(resourceName: "notFavorite"), for: .normal)
         favorite.contentMode = .scaleAspectFill
         favorite.clipsToBounds = true
+        favorite.addTarget(self, action: #selector(heartIsPressed), for: .touchUpInside)
         contentView.addSubview(favorite)
         
         name = UILabel()
@@ -91,6 +92,7 @@ class LibraryCollectionViewCell: UICollectionViewCell {
     func configure(for library: Library) {
         image.image = UIImage(named: library.image)
         name.text = library.name
+        
         if(library.isOpen) {
             status.text = "Open"
             status.textColor = green
@@ -99,12 +101,36 @@ class LibraryCollectionViewCell: UICollectionViewCell {
             status.text = "Closing Soon"
             status.textColor = UIColor(red: 255/255, green: 215/255, blue: 0, alpha: 1)
         }
-        if(!library.isOpen){
+        if(library.hours == "24/7") {
+            hours.text = " | Open " + library.hours
+        }
+        else {
+        var time = library.hours.components(separatedBy: " ")
+        hours.text = " | Closes at " + time[3] + " " +  time[4]
+        }
+        
+        if(!library.isOpen) {
+            
             status.text = "Closed"
             status.textColor = .red
+            
+            var time = library.hours.components(separatedBy: " ")
+            hours.text = " | Opens at " + time[0] + " " + time[1]
         }
-        hours.text = library.hours
         
+    }
+    
+    // this needs to be made into a delegate function which updates favorite library array for both HomeViewController and FavoriteViewController.
+    @objc func heartIsPressed() {
+        if(!favorite.isSelected) {
+            favorite.isSelected = true
+            favorite.setImage(#imageLiteral(resourceName: "favorite"), for: .normal)
+        }
+            
+        else {
+            favorite.isSelected = false
+            favorite.setImage(#imageLiteral(resourceName: "notFavorite"), for: .normal)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

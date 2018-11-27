@@ -13,7 +13,7 @@ class LibraryViewController: UIViewController {
     var library : Library
     
     var coverImage : UIImageView!
-    var isFavorite : UIImageView!
+    var isFavorite : UIButton!
     var header : UILabel!
     var hours : UILabel!
     var hoursTable: UITableView!
@@ -33,28 +33,33 @@ class LibraryViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.prefersLargeTitles = false
-        self.navigationController?.navigationBar.tintColor = UIColor(red: 38/255, green: 196/255, blue: 133/255, alpha: 1)
+        self.navigationController?.navigationBar.tintColor = .white//UIColor(red: 38/255, green: 196/255, blue: 133/255, alpha: 1)
         
         coverImage = UIImageView(frame: .zero)
         coverImage.translatesAutoresizingMaskIntoConstraints = false
-        coverImage.image = UIImage(named: "uris_cover")
+        coverImage.image = UIImage(named: library.image + "_cover")
         coverImage.contentMode = .scaleAspectFill
         coverImage.clipsToBounds = true
         view.addSubview(coverImage)
         
         header = UILabel()
         header.translatesAutoresizingMaskIntoConstraints = false
-        header.text = "URIS LIBRARY"
+        header.text = library.name
         //header?.font = ._16MontserratMedium
         header.textAlignment = .center
         header.font = .systemFont(ofSize: 40, weight: .bold)
         header.textColor = .white
         view.addSubview(header)
         
-        isFavorite = UIImageView()
+        isFavorite = UIButton()
         isFavorite.translatesAutoresizingMaskIntoConstraints = false
-        isFavorite.image = UIImage(named: "heart_white")
-        isFavorite.contentMode = .scaleAspectFit
+        if(library.isFavorite){
+            isFavorite.setImage(#imageLiteral(resourceName: "heart_full"), for: .normal)
+        }
+        else {
+            isFavorite.setImage(#imageLiteral(resourceName: "heart_white"), for: .normal)
+        }
+        isFavorite.contentMode = .scaleAspectFill
         view.addSubview(isFavorite)
         
         
@@ -72,10 +77,10 @@ class LibraryViewController: UIViewController {
             header.centerXAnchor.constraint(equalTo: view.centerXAnchor)
             ])
         NSLayoutConstraint.activate([
-            isFavorite.topAnchor.constraint(equalTo: view.topAnchor, constant: 30),
-            isFavorite.centerXAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
-            isFavorite.heightAnchor.constraint(equalToConstant: 30),
-            isFavorite.widthAnchor.constraint(equalToConstant: 30)
+            isFavorite.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            isFavorite.centerXAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            isFavorite.heightAnchor.constraint(equalToConstant: 40),
+            isFavorite.widthAnchor.constraint(equalToConstant: 40)
             ])
     
     }

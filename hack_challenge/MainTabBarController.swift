@@ -31,13 +31,13 @@ class MainTabBarController: UITabBarController  {
         let arbitraryO = Location(place: .central, coordinates: CLLocationCoordinate2D(latitude: 42.448078, longitude: -76.484291))
         let arbitraryL = Location(place: .central, coordinates: CLLocationCoordinate2D(latitude: 42.4439, longitude: -76.4858))
         
-        let africana = Library(name: "Africana Library", image: "africana", isOpen: true, isClosing: true, hours: " | 9:00 AM - 11:00 PM", location: arbitraryA, favorite: false, nooks: "", services: "")
-        let engineering = Library(name: "Engineering Library", image: "engineering", isOpen: true, isClosing: false, hours: " | 24/7", location: arbitraryE, favorite: false, nooks: "", services: "")
-        let law = Library(name: "Law Library", image: "law", isOpen: false, isClosing: false, hours: " | 8 AM - 8 PM", location: arbitraryL, favorite: false, nooks: "", services: "")
-        let mann = Library(name: "Mann Library", image: "mann", isOpen: true, isClosing: true, hours: " | 10:00 AM - 12:00 AM", location: arbitraryMa, favorite: false, nooks: "", services: "")
-        let music = Library(name: "Music Library", image: "music", isOpen: false, isClosing: false, hours: " | 9:00 AM - 10:00 PM", location: arbitraryMu, favorite: false, nooks: "", services: "")
-        let olin = Library(name: "Olin Library", image: "olin", isOpen: true, isClosing: false, hours: " | 8:00 AM - 2:00 AM", location: arbitraryO, favorite: false, nooks: "", services: "")
-        let uris = Library(name: "Uris Library", image: "uris", isOpen: true, isClosing: false, hours: " | 8:00 AM - 1:00 AM", location: arbitraryU, favorite: false, nooks: "", services: "")
+        let africana = Library(name: "Africana Library", image: "africana", isOpen: true, isClosing: true, hours: "9:00 AM - 11:00 PM", location: arbitraryA, favorite: false, nooks: "", services: "")
+        let engineering = Library(name: "Engineering Library", image: "engineering", isOpen: true, isClosing: false, hours: "24/7", location: arbitraryE, favorite: false, nooks: "", services: "")
+        let law = Library(name: "Law Library", image: "law", isOpen: false, isClosing: false, hours: "8 AM - 8 PM", location: arbitraryL, favorite: false, nooks: "", services: "")
+        let mann = Library(name: "Mann Library", image: "mann", isOpen: true, isClosing: true, hours: "10:00 AM - 12:00 AM", location: arbitraryMa, favorite: false, nooks: "", services: "")
+        let music = Library(name: "Music Library", image: "music", isOpen: false, isClosing: false, hours: "9:00 AM - 10:00 PM", location: arbitraryMu, favorite: false, nooks: "", services: "")
+        let olin = Library(name: "Olin Library", image: "olin", isOpen: true, isClosing: false, hours: "8:00 AM - 2:00 AM", location: arbitraryO, favorite: false, nooks: "", services: "")
+        let uris = Library(name: "Uris Library", image: "uris", isOpen: true, isClosing: false, hours: "8:00 AM - 1:00 AM", location: arbitraryU, favorite: false, nooks: "", services: "")
         
         librariesArray = [africana, engineering, law, mann, music, olin, uris]
         

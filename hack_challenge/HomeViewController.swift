@@ -8,6 +8,8 @@
 
 import UIKit
 
+// need to make protocol delegate and extension!
+
 class HomeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     

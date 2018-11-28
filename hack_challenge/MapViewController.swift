@@ -55,10 +55,16 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         super.viewDidLoad()
 
         view.backgroundColor = .white
-        navigationController?.navigationBar.prefersLargeTitles = true
+        /*navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Find Study Nooks"
         navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.shadowImage = UIImage() */
+        
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.backgroundColor = .clear
+        navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.prefersLargeTitles = false
         
         /*
         let camera = GMSCameraPosition.camera(withLatitude: 42.4534, longitude: -76.4735, zoom: 12.0)
@@ -119,10 +125,39 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         fatalError("init(coder:) has not been implemented")
     }
     
-   /* func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        let newViewController = LibraryViewController(library: libraries[libraryAnnotations.index(of: view.annotation as! MKPointAnnotation) ?? 0], delegate: nil, userLocation: userLocation)
-        self.navigationController?.pushViewController(newViewController, animated: true)
-    } */
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let lineRendered = MKPolylineRenderer(polyline: mapView.overlays.first! as! MKPolyline)
+        lineRendered.strokeColor = UIColor(red: 67/255, green: 170/255, blue: 233/255, alpha: 1)
+        lineRendered.lineWidth = 3
+        return lineRendered
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        let newViewController = LibraryViewController(library: libraries[libraryAnnotations.index(of: view.annotation as! MKPointAnnotation) ?? 0])
+        navigationController?.pushViewController(newViewController, animated: true)
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if !(annotation is MKPointAnnotation) {
+            return nil
+        }
+
+        let annotationView: MKAnnotationView
+
+        if let dequeued = mapView.dequeueReusableAnnotationView(withIdentifier: "libraryPin") {
+            annotationView = dequeued
+            annotationView.annotation = annotation
+        } else {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "libraryPin")
+            annotationView.canShowCallout = true
+            annotationView.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        }
+
+        annotationView.image = annotation.subtitle == "Open" ? UIImage(named: "pin_open") : UIImage(named: "pin_closed")
+
+        return annotationView
+    }
+
 
     /*0
     // MARK: - Navigation

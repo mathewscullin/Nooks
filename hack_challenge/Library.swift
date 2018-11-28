@@ -14,6 +14,8 @@ public enum Area : String {
     case central = "Central"
     case west = "West"
     case agquad = "AG Quad"
+    case engquad = "Engineering Quad"
+    case ctown = "College Town"
     case unkown = ""
 }
 struct Location {
@@ -31,15 +33,13 @@ class Library {
     var location: Location
     var nooks: String
     var services: String
-    var isFavorite: Bool
     
-    init(name : String, image: String, isOpen: Bool, isClosing: Bool, hours: String, location: Location, favorite: Bool, nooks: String, services : String) {
+    init(name : String, image: String, isOpen: Bool, isClosing: Bool, hours: String, location: Location, nooks: String, services : String) {
         self.name = name
         self.image = image
         self.isOpen = isOpen
         self.isClosing = isClosing
         self.hours = hours
-        isFavorite = favorite
         self.location = location
         self.nooks = nooks
         self.services = services

@@ -16,7 +16,7 @@ class LibraryCollectionViewCell: UICollectionViewCell {
     var status: UILabel!
     var hours: UILabel!
     
-    let green = UIColor(red: 38/255, green: 196/255, blue: 133/255, alpha: 1)
+    let green = UIColor(red:0.35, green:0.77, blue:0.34, alpha:1.0)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,7 +35,7 @@ class LibraryCollectionViewCell: UICollectionViewCell {
         
         favorite = UIButton()
         favorite.translatesAutoresizingMaskIntoConstraints = false
-        favorite.setImage(#imageLiteral(resourceName: "notFavorite"), for: .normal)
+        favorite.setImage(#imageLiteral(resourceName: "small_notFavorite"), for: .normal)
         favorite.contentMode = .scaleAspectFill
         favorite.clipsToBounds = true
         favorite.addTarget(self, action: #selector(heartIsPressed), for: .touchUpInside)
@@ -44,20 +44,20 @@ class LibraryCollectionViewCell: UICollectionViewCell {
         name = UILabel()
         name.translatesAutoresizingMaskIntoConstraints = false
         name.textAlignment = .left
-        name.font = .systemFont(ofSize: 26, weight: .regular)
+        name.font = .systemFont(ofSize: 27, weight: .regular)
         name.textColor = .black
         contentView.addSubview(name)
         
         status = UILabel()
         status.translatesAutoresizingMaskIntoConstraints = false
         status.textAlignment = .left
-        status.font = .systemFont(ofSize: 16, weight: .regular)
+        status.font = .systemFont(ofSize: 15, weight: .regular)
         contentView.addSubview(status)
         
         hours = UILabel()
         hours.translatesAutoresizingMaskIntoConstraints = false
         hours.textAlignment = .left
-        hours.font = .systemFont(ofSize: 16, weight: .regular)
+        hours.font = .systemFont(ofSize: 15, weight: .regular)
         hours.textColor = .black
         contentView.addSubview(hours)
     }
@@ -70,20 +70,20 @@ class LibraryCollectionViewCell: UICollectionViewCell {
             image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
             ])
         NSLayoutConstraint.activate([
-            name.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            name.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 10)
+            name.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 25),
+            name.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 8)
             ])
         NSLayoutConstraint.activate([
-            status.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 5),
-            status.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 10)
+            status.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 6),
+            status.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 8)
             ])
         NSLayoutConstraint.activate([
-            hours.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 5),
+            hours.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 6),
             hours.leadingAnchor.constraint(equalTo: status.trailingAnchor)
             ])
         NSLayoutConstraint.activate([
-            favorite.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            favorite.leadingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40)
+            favorite.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
+            favorite.leadingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -34)
             ])
         
         super.updateConstraints()
@@ -99,7 +99,7 @@ class LibraryCollectionViewCell: UICollectionViewCell {
         }
         if(library.isClosing) {
             status.text = "Closing Soon"
-            status.textColor = UIColor(red: 255/255, green: 215/255, blue: 0, alpha: 1)
+            status.textColor = UIColor(red:0.95, green:0.68, blue:0.12, alpha:1.0)
         }
         if(library.hours == "24/7") {
             hours.text = " | Open " + library.hours
@@ -112,7 +112,7 @@ class LibraryCollectionViewCell: UICollectionViewCell {
         if(!library.isOpen) {
             
             status.text = "Closed"
-            status.textColor = .red
+            status.textColor = UIColor(red:0.98, green:0.19, blue:0.19, alpha:1.0)
             
             var time = library.hours.components(separatedBy: " ")
             hours.text = " | Opens at " + time[0] + " " + time[1]
@@ -124,12 +124,12 @@ class LibraryCollectionViewCell: UICollectionViewCell {
     @objc func heartIsPressed() {
         if(!favorite.isSelected) {
             favorite.isSelected = true
-            favorite.setImage(#imageLiteral(resourceName: "favorite"), for: .normal)
+            favorite.setImage(#imageLiteral(resourceName: "small_favorite"), for: .normal)
         }
             
         else {
             favorite.isSelected = false
-            favorite.setImage(#imageLiteral(resourceName: "notFavorite"), for: .normal)
+            favorite.setImage(#imageLiteral(resourceName: "small_notFavorite"), for: .normal)
         }
     }
     

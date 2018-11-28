@@ -25,7 +25,7 @@ class FavoritesViewController: UIViewController {
 
         view.backgroundColor = .white
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Your Favorites"
+        navigationItem.title = "Your Favorites Nooks"
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.shadowImage = UIImage()
         

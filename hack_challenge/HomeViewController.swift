@@ -10,10 +10,10 @@ import UIKit
 
 // need to make protocol delegate and extension!
 
-class HomeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class HomeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
     
     
-    var searchBar: UITextField!
+    var searchBar: UISearchBar!
     var collectionView: UICollectionView!
     
     var allLibraries : [Library]
@@ -21,7 +21,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     var searchedLibraries: [Library]! = []
     
     let libraryCellReuseIdentifier = "libraryCellReuseIdentifier"
-    let padding : CGFloat = 10
+    let padding : CGFloat = 18
 
     
     init(allLibraries libraries : [Library], favoriteLibraries favLibraries : [Library]) {
@@ -35,23 +35,23 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
 
         view.backgroundColor = .white
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Good Evening"
+        navigationItem.title = getGreeting()
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
        
         
-        searchBar = UITextField()
+        searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.backgroundColor = UIColor(red: 225/255, green: 225/255, blue: 225/255, alpha: 1)
+        searchBar.backgroundImage = UIImage()
         searchBar.layer.cornerRadius = 8
-        searchBar.placeholder = " Search for study nooks."
-        searchBar.tintColor = .darkGray
+        searchBar.placeholder = "Search for study nooks."
+        searchBar.delegate = self
         view.addSubview(searchBar)
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.minimumInteritemSpacing = padding
+        layout.minimumInteritemSpacing = padding * 1.5
         layout.minimumLineSpacing = padding
         layout.sectionInset = UIEdgeInsets(top: 0, left: padding, bottom: 0, right: padding)
         
@@ -69,14 +69,14 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     func setUpConstraints() {
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            searchBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            searchBar.widthAnchor.constraint(equalToConstant: 366),
             searchBar.heightAnchor.constraint(equalToConstant: 30)
             ])
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: padding * 2),
+            collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: padding),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
@@ -110,8 +110,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let length = (collectionView.frame.width - padding * 2)
-        return CGSize(width: length, height: 80)
+        return CGSize(width: 366, height: 114)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -119,5 +118,16 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         navigationController?.pushViewController(newViewController, animated: true)
     }
     
-   // overriding the textFieldDidBeginEditing and textFieldDidChange
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        print("searching")
+    }
+    
+    private func getGreeting() -> String {
+        let currDate = Date()
+        let hour = Calendar.current.component(.hour, from: currDate)
+        
+        if hour < 12 { return " Good Morning!" }
+        if hour < 17 { return "Good Afternoon!"}
+        return "Good Evening!"
+    }
 }

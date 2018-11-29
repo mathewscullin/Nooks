@@ -47,7 +47,7 @@ class LibraryViewController: UIViewController {
         
         isFavorite = UIButton()
         isFavorite.translatesAutoresizingMaskIntoConstraints = false
-        isFavorite.setImage(#imageLiteral(resourceName: "big_favorite"), for: .normal)
+        isFavorite.setImage(#imageLiteral(resourceName: "big_notFavorite"), for: .normal)
         isFavorite.contentMode = .scaleAspectFill
         view.addSubview(isFavorite)
         
@@ -96,6 +96,7 @@ class LibraryViewController: UIViewController {
         
     
     }
+    
     
    override func willMove(toParent parent: UIViewController?) {
         self.navigationController?.navigationBar.prefersLargeTitles = true

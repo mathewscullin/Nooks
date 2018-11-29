@@ -25,13 +25,13 @@ class FavoritesViewController: UIViewController {
 
         view.backgroundColor = .white
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Your Favorites Nooks"
+        navigationItem.title = "Your Favorite Nooks"
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.shadowImage = UIImage()
         
         empty = UILabel()
         empty.translatesAutoresizingMaskIntoConstraints = false
-        empty.textColor = .lightGray
+        empty.textColor = UIColor(red:0.65, green:0.65, blue:0.65, alpha:1.0)
         empty.font = .systemFont(ofSize: 16, weight: .regular)
         empty.text = ""
         empty.textAlignment = .center

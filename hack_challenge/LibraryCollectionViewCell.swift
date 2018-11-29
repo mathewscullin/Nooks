@@ -51,13 +51,13 @@ class LibraryCollectionViewCell: UICollectionViewCell {
         status = UILabel()
         status.translatesAutoresizingMaskIntoConstraints = false
         status.textAlignment = .left
-        status.font = .systemFont(ofSize: 15, weight: .regular)
+        status.font = .systemFont(ofSize: 18, weight: .regular)
         contentView.addSubview(status)
         
         hours = UILabel()
         hours.translatesAutoresizingMaskIntoConstraints = false
         hours.textAlignment = .left
-        hours.font = .systemFont(ofSize: 15, weight: .regular)
+        hours.font = .systemFont(ofSize: 18, weight: .regular)
         hours.textColor = .black
         contentView.addSubview(hours)
     }
@@ -66,24 +66,26 @@ class LibraryCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             image.topAnchor.constraint(equalTo: contentView.topAnchor),
             image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            image.trailingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 120),
+            image.trailingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 118),
             image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
             ])
         NSLayoutConstraint.activate([
-            name.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 25),
+            name.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             name.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 8)
             ])
         NSLayoutConstraint.activate([
-            status.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 6),
+            status.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 4),
             status.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 8)
             ])
         NSLayoutConstraint.activate([
-            hours.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 6),
-            hours.leadingAnchor.constraint(equalTo: status.trailingAnchor)
+            hours.topAnchor.constraint(equalTo: status.bottomAnchor, constant: 4),
+            hours.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 8)
             ])
         NSLayoutConstraint.activate([
-            favorite.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
-            favorite.leadingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -34)
+            favorite.centerYAnchor.constraint(equalTo: contentView.topAnchor, constant: 57),
+            favorite.leadingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -34),
+            favorite.heightAnchor.constraint(equalToConstant: 20),
+            favorite.widthAnchor.constraint(equalToConstant: 20),
             ])
         
         super.updateConstraints()
@@ -102,11 +104,11 @@ class LibraryCollectionViewCell: UICollectionViewCell {
             status.textColor = UIColor(red:0.95, green:0.68, blue:0.12, alpha:1.0)
         }
         if(library.hours == "24/7") {
-            hours.text = " | Open " + library.hours
+            hours.text = "Open " + library.hours
         }
         else {
         var time = library.hours.components(separatedBy: " ")
-        hours.text = " | Closes at " + time[3] + " " +  time[4]
+        hours.text = "Closes at " + time[3] + " " +  time[4]
         }
         
         if(!library.isOpen) {
@@ -115,7 +117,7 @@ class LibraryCollectionViewCell: UICollectionViewCell {
             status.textColor = UIColor(red:0.98, green:0.19, blue:0.19, alpha:1.0)
             
             var time = library.hours.components(separatedBy: " ")
-            hours.text = " | Opens at " + time[0] + " " + time[1]
+            hours.text = "Opens at " + time[0] + " " + time[1]
         }
         
     }

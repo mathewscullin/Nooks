@@ -12,8 +12,8 @@ import UIKit
 
 class HomeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
     
-    
-    var searchBar: UISearchBar!
+    var search : UISearchBar!
+   // var searchBar: UISearchBar!
     var collectionView: UICollectionView!
     
     var allLibraries : [Library]
@@ -32,6 +32,8 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchedLibraries = allLibraries
 
         view.backgroundColor = .white
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -41,13 +43,17 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
        
         
-        searchBar = UISearchBar()
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.backgroundImage = UIImage()
-        searchBar.layer.cornerRadius = 8
-        searchBar.placeholder = "Search for study nooks."
-        searchBar.delegate = self
-        view.addSubview(searchBar)
+        search = UISearchBar()
+        search.placeholder = "Search for study nooks."
+        search.delegate = self
+        search.layer.cornerRadius = 10
+        search.backgroundImage = UIImage()
+        search.translatesAutoresizingMaskIntoConstraints = false
+
+        let textFieldInsideSearchBar = search.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.backgroundColor = UIColor(red:0.96, green:0.96, blue:0.96, alpha:1.0)
+        textFieldInsideSearchBar?.textColor = .gray
+        view.addSubview(search)
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -57,7 +63,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .clear
+        collectionView.backgroundColor = .white
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.alwaysBounceVertical = true
@@ -69,14 +75,14 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     func setUpConstraints() {
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            searchBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            searchBar.widthAnchor.constraint(equalToConstant: 366),
-            searchBar.heightAnchor.constraint(equalToConstant: 30)
+            search.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            search.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            search.widthAnchor.constraint(equalToConstant: 388),
+            search.heightAnchor.constraint(equalToConstant: 44)
             ])
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: padding),
+            collectionView.topAnchor.constraint(equalTo: search.bottomAnchor, constant: padding),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
@@ -84,7 +90,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allLibraries.count
+        return searchedLibraries.count
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -94,7 +100,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: libraryCellReuseIdentifier, for: indexPath) as! LibraryCollectionViewCell
-        let library = allLibraries[indexPath.item]
+        let library = searchedLibraries[indexPath.item]
         cell.configure(for: library)
 
         cell.layer.shadowColor = UIColor.gray.cgColor
@@ -122,6 +128,10 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         print("searching")
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        navigationItem.title = getGreeting()
+    }
+    
     private func getGreeting() -> String {
         let currDate = Date()
         let hour = Calendar.current.component(.hour, from: currDate)
@@ -130,4 +140,27 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         if hour < 17 { return "Good Afternoon!"}
         return "Good Evening!"
     }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if(searchText == "") {
+            searchedLibraries = allLibraries
+            
+        }
+        else {
+            getSearchedLibraries(libraries: allLibraries, searchText: searchText)
+        }
+        collectionView.reloadData()
+    }
+    
+    func getSearchedLibraries(libraries : [Library], searchText: String) {
+        searchedLibraries = []
+        let length = searchText.count
+        for library in libraries {
+            // searchText == library.location.place.
+            if(searchText == library.name.prefix(length)) {
+                searchedLibraries.append(library)
+            }
+        }
+    }
+    
 }

@@ -41,8 +41,7 @@ class MainTabBarController: UITabBarController  {
         
         librariesArray = [africana, engineering, law, mann, music, olin, uris]
         
-        tabBar.barTintColor = UIColor(red: 67/255, green: 170/255, blue: 233/255, alpha: 1)
-        //tabBar.unselectedItemTintColor = .white
+        tabBar.barTintColor = UIColor(red:0.82, green:0.42, blue:0.42, alpha:1.0)
         tabBar.shadowImage = UIImage()
         
         setUpTabBar()
@@ -59,7 +58,7 @@ class MainTabBarController: UITabBarController  {
         guard let items = tabBar.items else { return }
         
         for item in items {
-            item.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
+            item.imageInsets = UIEdgeInsets(top: 8, left: 0, bottom: -8, right: 0)
         }
         
     }

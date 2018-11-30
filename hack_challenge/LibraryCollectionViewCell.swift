@@ -44,7 +44,7 @@ class LibraryCollectionViewCell: UICollectionViewCell {
         name = UILabel()
         name.translatesAutoresizingMaskIntoConstraints = false
         name.textAlignment = .left
-        name.font = .systemFont(ofSize: 27, weight: .regular)
+        name.font = .systemFont(ofSize: 26, weight: .regular)
         name.textColor = .black
         contentView.addSubview(name)
         
@@ -92,7 +92,7 @@ class LibraryCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(for library: Library) {
-        image.image = UIImage(named: library.image)
+        image.image = UIImage(named: library.image_url)
         name.text = library.name
         
         if(library.isOpen) {
@@ -103,11 +103,11 @@ class LibraryCollectionViewCell: UICollectionViewCell {
             status.text = "Closing Soon"
             status.textColor = UIColor(red:0.95, green:0.68, blue:0.12, alpha:1.0)
         }
-        if(library.hours == "24/7") {
-            hours.text = "Open " + library.hours
+        if(library.times[0] == "24/7") {
+            hours.text = "Open " + library.times[0]
         }
         else {
-        var time = library.hours.components(separatedBy: " ")
+        var time = library.times[0].components(separatedBy: " ")
         hours.text = "Closes at " + time[3] + " " +  time[4]
         }
         
@@ -116,7 +116,7 @@ class LibraryCollectionViewCell: UICollectionViewCell {
             status.text = "Closed"
             status.textColor = UIColor(red:0.98, green:0.19, blue:0.19, alpha:1.0)
             
-            var time = library.hours.components(separatedBy: " ")
+            var time = library.times[0].components(separatedBy: " ")
             hours.text = "Opens at " + time[0] + " " + time[1]
         }
         

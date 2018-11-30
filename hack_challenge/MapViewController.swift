@@ -101,7 +101,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         for library in libraries {
             let annotationTitle = library.name
             let libraryAnnotation = MKPointAnnotation()
-            libraryAnnotation.coordinate = library.location.coordinates
+            libraryAnnotation.coordinate = CLLocationCoordinate2D(latitude: Double(library.location.coordinates[0]), longitude: Double(library.location.coordinates[1]))
             libraryAnnotation.title = annotationTitle
             libraryAnnotation.subtitle = library.isOpen ? "Open" : "Closed"
             mapView.addAnnotation(libraryAnnotation)

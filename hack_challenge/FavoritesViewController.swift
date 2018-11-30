@@ -11,14 +11,8 @@ import SnapKit
 
 class FavoritesViewController: UIViewController {
     
-    var favLibraries : [Library]
     var empty : UILabel!
     var house : UIImageView!
-    
-    init(favLibraries favoriteLibraries : [Library]) {
-        self.favLibraries = favoriteLibraries
-        super.init(nibName: nil, bundle: nil)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +37,7 @@ class FavoritesViewController: UIViewController {
         house.contentMode = .scaleAspectFit
         view.addSubview(house)
         
-        if(favLibraries.isEmpty) {
+        if(true) {
             empty.text = "You have no favorites! Add some in"
             house.image = #imageLiteral(resourceName: "home_gray")
         }
@@ -64,11 +58,6 @@ class FavoritesViewController: UIViewController {
             ])
         
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     /*
     // MARK: - Navigation
 

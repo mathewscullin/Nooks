@@ -17,16 +17,14 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     var collectionView: UICollectionView!
     
     var allLibraries : [Library]
-    var favoriteLibraries : [Library]
     var searchedLibraries: [Library]! = []
     
     let libraryCellReuseIdentifier = "libraryCellReuseIdentifier"
     let padding : CGFloat = 18
 
     
-    init(allLibraries libraries : [Library], favoriteLibraries favLibraries : [Library]) {
+    init(allLibraries libraries : [Library]) {
         self.allLibraries = libraries
-        self.favoriteLibraries = favLibraries
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -157,7 +155,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         let length = searchText.count
         for library in libraries {
             // searchText == library.location.place.
-            if(searchText == library.name.prefix(length)) {
+            if(searchText.lowercased() == library.name.prefix(length).lowercased()) {
                 searchedLibraries.append(library)
             }
         }

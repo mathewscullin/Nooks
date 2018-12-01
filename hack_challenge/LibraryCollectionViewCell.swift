@@ -15,6 +15,9 @@ class LibraryCollectionViewCell: UICollectionViewCell {
     var name: UILabel!
     var status: UILabel!
     var hours: UILabel!
+
+    
+    weak var delegate: FavoriteCellDelegate?
     
     let green = UIColor(red:0.35, green:0.77, blue:0.34, alpha:1.0)
     
@@ -35,7 +38,6 @@ class LibraryCollectionViewCell: UICollectionViewCell {
         
         favorite = UIButton()
         favorite.translatesAutoresizingMaskIntoConstraints = false
-        favorite.setImage(#imageLiteral(resourceName: "small_notFavorite"), for: .normal)
         favorite.contentMode = .scaleAspectFill
         favorite.clipsToBounds = true
         favorite.addTarget(self, action: #selector(heartIsPressed), for: .touchUpInside)
@@ -95,6 +97,13 @@ class LibraryCollectionViewCell: UICollectionViewCell {
         image.image = UIImage(named: library.image_url)
         name.text = library.name
         
+        if(!library.isFavorite) {
+            favorite.setImage(#imageLiteral(resourceName: "small_notFavorite"), for: .normal)
+        }
+        else {
+            favorite.setImage(#imageLiteral(resourceName: "big_favorite"), for: .normal)
+        }
+        
         if(library.isOpen) {
             status.text = "Open"
             status.textColor = green
@@ -124,19 +133,12 @@ class LibraryCollectionViewCell: UICollectionViewCell {
     
     // this needs to be made into a delegate function which updates favorite library array for both HomeViewController and FavoriteViewController.
     @objc func heartIsPressed() {
-        if(!favorite.isSelected) {
-            favorite.isSelected = true
-            favorite.setImage(#imageLiteral(resourceName: "small_favorite"), for: .normal)
-        }
-            
-        else {
-            favorite.isSelected = false
-            favorite.setImage(#imageLiteral(resourceName: "small_notFavorite"), for: .normal)
-        }
+            delegate?.favoriteButtonPressed(for: self)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     
 }

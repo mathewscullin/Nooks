@@ -65,6 +65,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.prefersLargeTitles = false
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         /*
         let camera = GMSCameraPosition.camera(withLatitude: 42.4534, longitude: -76.4735, zoom: 12.0)

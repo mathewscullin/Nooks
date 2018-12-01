@@ -9,6 +9,9 @@
 import UIKit
 
 // need to make protocol delegate and extension!
+protocol FavoriteCellDelegate: class {
+    func favoriteButtonPressed(for cell: LibraryCollectionViewCell)
+}
 
 class HomeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
     
@@ -21,6 +24,8 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     let libraryCellReuseIdentifier = "libraryCellReuseIdentifier"
     let padding : CGFloat = 18
+    
+    let defaults = UserDefaults.standard
 
     
     init(allLibraries libraries : [Library]) {
@@ -107,7 +112,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         cell.layer.shadowOpacity = 1.0
         cell.layer.masksToBounds = false
         cell.layer.shadowPath = UIBezierPath(roundedRect:cell.bounds, cornerRadius:cell.contentView.layer.cornerRadius).cgPath
-        
+        cell.delegate = self
         cell.setNeedsUpdateConstraints()
         
         return cell
@@ -118,16 +123,26 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let newViewController  = LibraryViewController(library: allLibraries[indexPath.row])
+        let newViewController  = LibraryViewController(library: searchedLibraries[indexPath.row])
         navigationController?.pushViewController(newViewController, animated: true)
     }
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        print("searching")
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         navigationItem.title = getGreeting()
+        
+        if let favoriteLibraries = UserDefaults.standard.value(forKey: "favoritedLibraries") as? [String] {
+            for name in favoriteLibraries {
+                for library in searchedLibraries {
+                    print(name)
+                    print(library.name)
+                    if(name == library.name) {
+                        print("x")
+                        library.isFavorite = true
+                    }
+                }
+            }
+        }
+        collectionView.reloadData()
     }
     
     private func getGreeting() -> String {
@@ -155,10 +170,38 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         let length = searchText.count
         for library in libraries {
             // searchText == library.location.place.
-            if(searchText.lowercased() == library.name.prefix(length).lowercased()) {
+            if(searchText.lowercased() == library.name.prefix(length).lowercased() ||
+               searchText.lowercased() == library.location.campus.prefix(length).lowercased()) {
                 searchedLibraries.append(library)
             }
         }
     }
     
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchBar.endEditing(true)
+    }
+}
+
+extension HomeViewController: FavoriteCellDelegate {
+    func favoriteButtonPressed(for cell: LibraryCollectionViewCell) {
+        let indexPath = collectionView.indexPath(for: cell)
+        let library = allLibraries[indexPath?.row ?? 0]
+        
+        if(!library.isFavorite) {
+            if var favLibraries = UserDefaults.standard.value(forKey: "favoritedLibraries") as? [String] {
+                favLibraries.append(library.name)
+                UserDefaults.standard.set(favLibraries, forKey: "favoritedLibraries")
+            }
+        }
+        
+        else {
+            if var favLibraries = UserDefaults.standard.value(forKey: "favoritedLibraries") as? [String] {
+                favLibraries = favLibraries.filter {$0 != library.name}
+                UserDefaults.standard.set(favLibraries, forKey: "favoritedLibraries")
+            }
+        }
+        library.isFavorite = !library.isFavorite
+        collectionView.reloadData()
+    }
 }

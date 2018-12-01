@@ -18,6 +18,7 @@
 		B63873E921A87A0B00C6611B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63873E821A87A0B00C6611B /* MapViewController.swift */; };
 		B63873ED21A886D000C6611B /* LibraryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63873EC21A886D000C6611B /* LibraryCollectionViewCell.swift */; };
 		B63873F121A8B7CE00C6611B /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63873F021A8B7CE00C6611B /* LibraryViewController.swift */; };
+		B680A8A721B0E42700FDEA9A /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B680A8A621B0E42700FDEA9A /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		B63873E821A87A0B00C6611B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		B63873EC21A886D000C6611B /* LibraryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCollectionViewCell.swift; sourceTree = "<group>"; };
 		B63873F021A8B7CE00C6611B /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
+		B680A8A621B0E42700FDEA9A /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		CEA25041E0BCAC8F5B23CEEC /* Pods-hack_challenge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hack_challenge.debug.xcconfig"; path = "Pods/Target Support Files/Pods-hack_challenge/Pods-hack_challenge.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				B63873CE21A4AD1800C6611B /* AppDelegate.swift */,
+				B680A8A621B0E42700FDEA9A /* NetworkManager.swift */,
 				B63873E421A879EF00C6611B /* HomeViewController.swift */,
 				B63873EC21A886D000C6611B /* LibraryCollectionViewCell.swift */,
 				B63873F021A8B7CE00C6611B /* LibraryViewController.swift */,
@@ -249,6 +252,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B680A8A721B0E42700FDEA9A /* NetworkManager.swift in Sources */,
 				B63873D121A4AD1800C6611B /* MainTabBarController.swift in Sources */,
 				B63873ED21A886D000C6611B /* LibraryCollectionViewCell.swift in Sources */,
 				B63873F121A8B7CE00C6611B /* LibraryViewController.swift in Sources */,

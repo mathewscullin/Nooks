@@ -12,13 +12,14 @@ class LibraryViewController: UIViewController {
     
     var library : Library
     
-    var isFavorite : UIButton!
+    var favorite : UIButton!
     var header : UILabel!
     var hours : UILabel!
     var actualHours : UILabel!
     var hoursTable: UITableView!
     var clock : UIImageView!
-    var features : UIStackView!
+    
+    var features : UIStackView! // will do tomorrow
     
     init(library : Library) {
         self.library = library
@@ -42,26 +43,37 @@ class LibraryViewController: UIViewController {
         header.text = library.name
         //header?.font = ._16MontserratMedium
         header.textAlignment = .center
-        header.font = .systemFont(ofSize: 32, weight: .regular)
+        header.font = .systemFont(ofSize: 30, weight: .regular)
         header.textColor = .black
         view.addSubview(header)
         
-        isFavorite = UIButton()
-        isFavorite.translatesAutoresizingMaskIntoConstraints = false
-        isFavorite.setImage(#imageLiteral(resourceName: "big_notFavorite"), for: .normal)
-        isFavorite.contentMode = .scaleAspectFill
-        view.addSubview(isFavorite)
+        favorite = UIButton() // will implement functionality later
+        favorite.translatesAutoresizingMaskIntoConstraints = false
+        if(library.isFavorite){
+           favorite.setImage(#imageLiteral(resourceName: "big_favorite"), for: .normal)
+        }
+        else {
+          favorite.setImage(#imageLiteral(resourceName: "big_notFavorite"), for: .normal)
+        }
+        favorite.contentMode = .scaleAspectFill
+        view.addSubview(favorite)
         
         hours = UILabel()
         hours.translatesAutoresizingMaskIntoConstraints = false
         hours.text = "HOURS"
         //header?.font = ._16MontserratMedium
         hours.textAlignment = .center
-        hours.font = .systemFont(ofSize: 18, weight: .regular)
+        hours.font = .systemFont(ofSize: 20, weight: .medium)
         hours.textColor = .black
         view.addSubview(hours)
         
         actualHours = UILabel()
+        actualHours.translatesAutoresizingMaskIntoConstraints = false
+        actualHours.text = library.times[0]
+        actualHours.textAlignment = .center
+        actualHours.font = .systemFont(ofSize: 18, weight: .regular)
+        actualHours.textColor = .black
+        view.addSubview(actualHours)
         
         clock = UIImageView(frame: .zero)
         clock.translatesAutoresizingMaskIntoConstraints = false
@@ -81,22 +93,28 @@ class LibraryViewController: UIViewController {
             header.centerXAnchor.constraint(equalTo: view.centerXAnchor)
             ])
         NSLayoutConstraint.activate([
-            isFavorite.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
-            isFavorite.centerXAnchor.constraint(equalTo: view.trailingAnchor, constant: -35),
-            isFavorite.heightAnchor.constraint(equalToConstant: 30),
-            isFavorite.widthAnchor.constraint(equalToConstant: 30)
+            favorite.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            favorite.centerXAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            favorite.heightAnchor.constraint(equalToConstant: 30),
+            favorite.widthAnchor.constraint(equalToConstant: 30)
             ])
         NSLayoutConstraint.activate([
-            hours.centerYAnchor.constraint(equalTo: header.bottomAnchor, constant: 20),
+            hours.centerYAnchor.constraint(equalTo: header.bottomAnchor, constant: 25),
             hours.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            ])
+        NSLayoutConstraint.activate([
+            actualHours.centerYAnchor.constraint(equalTo: hours.bottomAnchor, constant: 20),
+            actualHours.centerXAnchor.constraint(equalTo: view.centerXAnchor)
             ])
         
         NSLayoutConstraint.activate([
-            clock.centerYAnchor.constraint(equalTo: header.bottomAnchor, constant: 20),
-            clock.centerXAnchor.constraint(equalTo: hours.leadingAnchor, constant: -15),
-            clock.heightAnchor.constraint(equalToConstant: 20),
-            clock.widthAnchor.constraint(equalToConstant: 20)
+            clock.centerYAnchor.constraint(equalTo: hours.bottomAnchor, constant: 20),
+            clock.centerXAnchor.constraint(equalTo: actualHours.leadingAnchor, constant: -15),
+            clock.heightAnchor.constraint(equalToConstant: 18),
+            clock.widthAnchor.constraint(equalToConstant: 18)
             ])
+        
+        
         
     
     }

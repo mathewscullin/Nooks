@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Your location is required to xyz benefits for you</string>
+	<string>Your location is required to show your relation to other nooks.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Your location is required for xyz benefits for you</string>
+	<string>Your location is required to show your relation to other nooks.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

@@ -25,6 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GMSServices.provideAPIKey("AIzaSyA225WsgIzk6wXKmV1hGbKMrSnv8a2OzzM")
         
+        let defaults = UserDefaults.standard
+        defaults.register(defaults: [
+            "favoritedLibraries" : [String]()
+            ])
+        
         return true
     }
 

@@ -23,7 +23,25 @@ class MainTabBarController: UITabBarController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        librariesArray = []
+        let abit = Cafe.init(name: "Abit Libe Cafe", time: "8:00 AM - 12:00 AM", brb: true)
+        let ser = Services.init(Electronic: ["Printers", "Chargers"], Resources: ["Books", "Resources"])
+        let nook = Nook.init(roomName: "Asia Reading Room", loudnessLevel: "Quiet")
+        let info1 = Information.init(nooks: [nook], services: ser, cafe: abit)
+        let loc1 = Location.init(coordinates: [42.448078, -76.484291], campus: "Central")
+        let loc2 = Location.init(coordinates: [42.448068, -76.485291], campus: "Central")
+        let loc3 = Location.init(coordinates: [42.448068, -76.476291], campus: "Ag Quad")
+        let loc4 = Location.init(coordinates: [42.4574, -76.4822], campus: "North")
+        let olin = Library(name: "Olin Library", image_url: "olin", times: ["8:00 AM - 2:00 AM"], information: info1, location: loc1)
+        let uris = Library(name: "Uris Library", image_url: "uris", times: ["8:00 AM - 1:00 AM"], information: info1, location: loc2)
+        let mann = Library(name: "Mann Library", image_url: "mann", times: ["10:00 AM - 7:00 AM"], information: info1, location: loc3)
+        let africana = Library(name: "Africana Library", image_url: "africana", times: ["11:00 AM - 10:00 PM"], information: info1, location: loc4)
+        olin.isOpen = olin.getOpen(time: olin.times[0])
+        olin.isClosing = olin.getClosing(time: olin.times[0])
+        
+        uris.isOpen = uris.getOpen(time: uris.times[0])
+        uris.isClosing = uris.getClosing(time: uris.times[0])
+        
+        librariesArray = [olin, uris, mann, africana]
         
         tabBar.barTintColor = UIColor(red:0.82, green:0.42, blue:0.42, alpha:1.0)
         tabBar.shadowImage = UIImage()
@@ -35,7 +53,7 @@ class MainTabBarController: UITabBarController  {
         
         let homeController = createNavContoller(vc: HomeViewController(allLibraries: librariesArray), selectedImage: #imageLiteral(resourceName: "home_full"), unselectedImage: #imageLiteral(resourceName: "home_white"))
         let mapController = createNavContoller(vc: MapViewController(libraries: librariesArray), selectedImage: #imageLiteral(resourceName: "map_full"), unselectedImage: #imageLiteral(resourceName: "map_white"))
-        let favoriteController = createNavContoller(vc: FavoritesViewController(), selectedImage: #imageLiteral(resourceName: "heart_full"), unselectedImage: #imageLiteral(resourceName: "heart_white"))
+        let favoriteController = createNavContoller(vc: FavoritesViewController(libraries: librariesArray), selectedImage: #imageLiteral(resourceName: "heart_full"), unselectedImage: #imageLiteral(resourceName: "heart_white"))
         
         viewControllers = [homeController, mapController, favoriteController]
         

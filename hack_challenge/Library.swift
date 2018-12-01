@@ -57,19 +57,26 @@ class Library: Codable {
         isFavorite = false
     }
     
-    func isOpen(time: String) -> Bool {
+    func getOpen(time: String) -> Bool{
         let currDate = Date()
         let hour = Calendar.current.component(.hour, from: currDate)
         var opening = time.components(separatedBy: ":")
         var end = time.components(separatedBy: " ")
-        var closing = end[4].components(separatedBy: ":")
-        if(hour >= Int(opening[0]) ?? 0 && hour < 12 + (Int(closing[0]) ?? 24)) {
+        var closing = Int(end[3].components(separatedBy: ":")[0])
+        if(end[4] == "PM" && closing ?? 0 < 12) {
+            closing! += 12
+        }
+        if(hour >= Int(opening[0]) ?? 0) { //&& hour < 12 + (Int(closing[0]) ?? 24)) {
+            print(opening[0])
+            print(closing)
+            print(hour)
+            print(end[3].components(separatedBy: ":"))
             return true
         }
         return false
     }
     
-    func isClosing(time: String) -> Bool {
+    func getClosing(time: String) -> Bool {
         let currDate = Date()
         let hour = Calendar.current.component(.hour, from: currDate)
         var end = time.components(separatedBy: " ")

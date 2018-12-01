@@ -133,10 +133,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         if let favoriteLibraries = UserDefaults.standard.value(forKey: "favoritedLibraries") as? [String] {
             for name in favoriteLibraries {
                 for library in searchedLibraries {
-                    print(name)
-                    print(library.name)
                     if(name == library.name) {
-                        print("x")
                         library.isFavorite = true
                     }
                 }

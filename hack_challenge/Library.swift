@@ -10,7 +10,7 @@ import Foundation
 
 
 struct Location: Codable {
-    var coordinates : [Float]
+    var coordinates : [Double]
     var campus : String
 }
 
@@ -30,7 +30,7 @@ struct Cafe : Codable {
 
 
 struct Information : Codable {
-    var nooks : [Nook]
+    //var nooks : [Nook]
     var services : Services
     var cafe : Cafe
 }
@@ -41,10 +41,10 @@ class Library: Codable {
     var image_url : String
     var times: [String]
     var information: Information
-    var isOpen : Bool
-    var isClosing : Bool
+    var isOpen : Bool = false
+    var isClosing : Bool = false
     var location: Location
-    var isFavorite: Bool
+    var isFavorite: Bool = false
     
     init(name: String, image_url : String, times : [String], information: Information, location : Location) {
         self.name = name
@@ -52,42 +52,21 @@ class Library: Codable {
         self.times = times
         self.information = information
         self.location = location
-        isOpen = false
-        isClosing = false
+        self.isOpen = getIsOpen(time: times[0])
+        self.isClosing = getIsClosing(time: times[0])
         isFavorite = false
     }
     
-    func getOpen(time: String) -> Bool{
-        let currDate = Date()
-        let hour = Calendar.current.component(.hour, from: currDate)
-        var opening = time.components(separatedBy: ":")
-        var end = time.components(separatedBy: " ")
-        var closing = Int(end[3].components(separatedBy: ":")[0])
-        if(end[4] == "PM" && closing ?? 0 < 12) {
-            closing! += 12
-        }
-        if(hour >= Int(opening[0]) ?? 0) { //&& hour < 12 + (Int(closing[0]) ?? 24)) {
-            print(opening[0])
-            print(closing)
-            print(hour)
-            print(end[3].components(separatedBy: ":"))
-            return true
-        }
-        return false
-    }
-    
-    func getClosing(time: String) -> Bool {
-        let currDate = Date()
-        let hour = Calendar.current.component(.hour, from: currDate)
-        var end = time.components(separatedBy: " ")
-        var closing = end[4].components(separatedBy: ":")
-        if( (Int(closing[0]) ?? 0) - hour <= 1) {
-            return true
-        }
-        return false
+    enum CodingKeys: String, CodingKey {
+        case name , image_url , times, information , location
     }
 }
 
-struct libraryResponse: Codable {
+struct LibraryResponse: Codable {
     var libraries: [Library]
 }
+struct finalLibraryResponse: Codable {
+    var data: LibraryResponse
+}
+
+

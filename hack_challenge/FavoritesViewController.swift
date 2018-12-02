@@ -13,7 +13,8 @@ class FavoritesViewController: UIViewController, FavoriteCellDelegate, UICollect
     
     
     var libraries : [Library]
-    var favLibraries : [Library]!
+    var favLibraries : [Library]! = []
+    var emptyView : UIView!
     var empty : UILabel!
     var house : UIImageView!
     var collectionView : UICollectionView!
@@ -32,8 +33,6 @@ class FavoritesViewController: UIViewController, FavoriteCellDelegate, UICollect
         
         super.viewDidLoad()
         
-        favLibraries = []
-        
         if let favoriteLibraries = UserDefaults.standard.value(forKey: "favoritedLibraries") as? [String] {
             for name in favoriteLibraries {
                 for library in libraries {
@@ -49,7 +48,11 @@ class FavoritesViewController: UIViewController, FavoriteCellDelegate, UICollect
         navigationItem.title = "Your Favorite Nooks"
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationController?.navigationItem.largeTitleDisplayMode = .always
+        
+        emptyView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 1))
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(emptyView)
         
         empty = UILabel()
         empty.translatesAutoresizingMaskIntoConstraints = false
@@ -87,6 +90,7 @@ class FavoritesViewController: UIViewController, FavoriteCellDelegate, UICollect
         }
         
         setUpConstraints()
+        collectionView.reloadData()
     }
     
     func setUpConstraints() {
@@ -95,13 +99,17 @@ class FavoritesViewController: UIViewController, FavoriteCellDelegate, UICollect
             empty.centerXAnchor.constraint(equalTo: view.centerXAnchor)
             ])
         NSLayoutConstraint.activate([
+            emptyView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            emptyView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyView.heightAnchor.constraint(equalToConstant: 1)])
+        NSLayoutConstraint.activate([
             house.topAnchor.constraint(equalTo: empty.bottomAnchor, constant: 10),
             house.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             house.heightAnchor.constraint(equalToConstant: 30),
             house.widthAnchor.constraint(equalToConstant: 30)
             ])
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
+            collectionView.topAnchor.constraint(equalTo: emptyView.bottomAnchor, constant: padding - 1),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
@@ -176,6 +184,8 @@ class FavoritesViewController: UIViewController, FavoriteCellDelegate, UICollect
         if(favLibraries.count == 0) {
             empty.text = "You have no favorites! Add some in"
             house.image = #imageLiteral(resourceName: "home_gray")
+            empty.alpha = 1.0
+            house.alpha = 1.0
         } else {
             empty.alpha = 0.0
             house.alpha = 0.0
@@ -185,6 +195,10 @@ class FavoritesViewController: UIViewController, FavoriteCellDelegate, UICollect
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    public func loadLibraries(lib : [Library]) {
+        libraries = lib
     }
 
 }

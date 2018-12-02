@@ -19,6 +19,7 @@
 		B63873ED21A886D000C6611B /* LibraryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63873EC21A886D000C6611B /* LibraryCollectionViewCell.swift */; };
 		B63873F121A8B7CE00C6611B /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63873F021A8B7CE00C6611B /* LibraryViewController.swift */; };
 		B680A8A721B0E42700FDEA9A /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B680A8A621B0E42700FDEA9A /* NetworkManager.swift */; };
+		B680A8A921B3A93300FDEA9A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B680A8A821B3A93300FDEA9A /* Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		B63873EC21A886D000C6611B /* LibraryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCollectionViewCell.swift; sourceTree = "<group>"; };
 		B63873F021A8B7CE00C6611B /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
 		B680A8A621B0E42700FDEA9A /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		B680A8A821B3A93300FDEA9A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		CEA25041E0BCAC8F5B23CEEC /* Pods-hack_challenge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hack_challenge.debug.xcconfig"; path = "Pods/Target Support Files/Pods-hack_challenge/Pods-hack_challenge.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -90,6 +92,7 @@
 				B63873E821A87A0B00C6611B /* MapViewController.swift */,
 				B63873D021A4AD1800C6611B /* MainTabBarController.swift */,
 				B63873E021A4C16500C6611B /* Library.swift */,
+				B680A8A821B3A93300FDEA9A /* Utils.swift */,
 				B63873D521A4AD1B00C6611B /* Assets.xcassets */,
 				B63873D721A4AD1B00C6611B /* LaunchScreen.storyboard */,
 				B63873DA21A4AD1B00C6611B /* Info.plist */,
@@ -257,6 +260,7 @@
 				B63873ED21A886D000C6611B /* LibraryCollectionViewCell.swift in Sources */,
 				B63873F121A8B7CE00C6611B /* LibraryViewController.swift in Sources */,
 				B63873E921A87A0B00C6611B /* MapViewController.swift in Sources */,
+				B680A8A921B3A93300FDEA9A /* Utils.swift in Sources */,
 				B63873CF21A4AD1800C6611B /* AppDelegate.swift in Sources */,
 				B63873E521A879EF00C6611B /* HomeViewController.swift in Sources */,
 				B63873E721A879FF00C6611B /* FavoritesViewController.swift in Sources */,

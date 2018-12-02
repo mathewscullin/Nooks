@@ -12,6 +12,8 @@ class LibraryViewController: UIViewController {
     
     var library : Library
     
+    var everything : UIStackView!
+    
     var favorite : UIButton!
     var header : UILabel!
     var hours : UILabel!
@@ -19,7 +21,6 @@ class LibraryViewController: UIViewController {
     var hoursTable: UITableView!
     var clock : UIImageView!
     
-    var features : UIStackView! // will do tomorrow
     
     init(library : Library) {
         self.library = library

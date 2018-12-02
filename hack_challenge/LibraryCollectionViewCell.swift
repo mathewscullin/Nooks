@@ -72,7 +72,7 @@ class LibraryCollectionViewCell: UICollectionViewCell {
             image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
             ])
         NSLayoutConstraint.activate([
-            name.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            name.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
             name.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 8)
             ])
         NSLayoutConstraint.activate([
@@ -94,7 +94,7 @@ class LibraryCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(for library: Library) {
-        image.image = UIImage(named: library.image_url)
+        image.image = NetworkManager.getImageFromURLString(urlString: library.image_url)
         name.text = library.name
         
         if(!library.isFavorite) {
@@ -112,8 +112,11 @@ class LibraryCollectionViewCell: UICollectionViewCell {
             status.text = "Closing Soon"
             status.textColor = UIColor(red:0.95, green:0.68, blue:0.12, alpha:1.0)
         }
-        if(library.times[0] == "24/7") {
+        if(library.times[0] == "24 Hours") {
             hours.text = "Open " + library.times[0]
+        }
+        else if(library.times[0] == "Closed") {
+            hours.text = "Open " + library.times[1]
         }
         else {
         var time = library.times[0].components(separatedBy: " ")
@@ -126,7 +129,7 @@ class LibraryCollectionViewCell: UICollectionViewCell {
             status.textColor = UIColor(red:0.98, green:0.19, blue:0.19, alpha:1.0)
             
             var time = library.times[0].components(separatedBy: " ")
-            hours.text = "Opens at " + time[0] + " " + time[1]
+            hours.text = "Opens at " + time[0] + " " + time[0]
         }
         
     }

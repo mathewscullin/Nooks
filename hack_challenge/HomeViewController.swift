@@ -128,6 +128,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         navigationItem.title = getGreeting()
         
         if let favoriteLibraries = UserDefaults.standard.value(forKey: "favoritedLibraries") as? [String] {
@@ -173,17 +174,28 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
             }
         }
     }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
         searchBar.endEditing(true)
+        searchBar.showsCancelButton = false
+        searchedLibraries = allLibraries
+        collectionView.reloadData()
+    }
+    
+   public func loadLibraries(lib : [Library]) {
+        allLibraries = lib
+        searchedLibraries = allLibraries
+        collectionView.reloadData()
     }
 }
 
 extension HomeViewController: FavoriteCellDelegate {
     func favoriteButtonPressed(for cell: LibraryCollectionViewCell) {
         let indexPath = collectionView.indexPath(for: cell)
-        let library = allLibraries[indexPath?.row ?? 0]
+        let library = searchedLibraries[indexPath?.row ?? 0]
         
         if(!library.isFavorite) {
             if var favLibraries = UserDefaults.standard.value(forKey: "favoritedLibraries") as? [String] {

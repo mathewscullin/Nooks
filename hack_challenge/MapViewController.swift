@@ -92,11 +92,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let region = MKCoordinateRegion(center: defaultCoordinate, span: span)
         mapView.setRegion(region, animated: true)
         
-        mapEateries(libraries)
+        mapLibraries(libraries)
         
     }
     
-    func mapEateries(_ libraries: [Library]) {
+    func mapLibraries(_ libraries: [Library]) {
         self.libraries = libraries
         
         for library in libraries {
@@ -158,7 +158,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 
         return annotationView
     }
-
 
     /*0
     // MARK: - Navigation

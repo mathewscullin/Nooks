@@ -139,6 +139,7 @@ class LibraryViewController: UIViewController {
         }
         nooksRooms.font = .systemFont(ofSize: 15, weight: .regular)
         nooksRooms.textAlignment = .left
+        nooksRooms.isEditable = false
         nooksRooms.textColor = .black
         view.addSubview(nooksRooms)
         
@@ -149,6 +150,7 @@ class LibraryViewController: UIViewController {
         }
         nooksLevels.font = .systemFont(ofSize: 15, weight: .regular)
         nooksLevels.textAlignment = .right
+        nooksLevels.isEditable = false
         nooksLevels.textColor = .black
         view.addSubview(nooksLevels)
         
@@ -188,6 +190,7 @@ class LibraryViewController: UIViewController {
         }
         electronics.font = .systemFont(ofSize: 15, weight: .regular)
         electronics.textAlignment = .center
+        electronics.isEditable = false
         electronics.textColor = .black
         view.addSubview(electronics)
         
@@ -198,6 +201,7 @@ class LibraryViewController: UIViewController {
         }
         resources.font = .systemFont(ofSize: 15, weight: .regular)
         resources.textAlignment = .center
+        resources.isEditable = false
         resources.textColor = .black
         view.addSubview(resources)
         
@@ -328,14 +332,14 @@ class LibraryViewController: UIViewController {
             resourcesLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: view.frame.width/4 + 5),
             resourcesLabel.centerYAnchor.constraint(equalTo: servicesLabel.bottomAnchor, constant: 20)
             ])
-        let heightE : CGFloat = CGFloat(34 + (library.information.services.electronic.count * 19))
+        let heightE : CGFloat = CGFloat(36 + (library.information.services.electronic.count * 21))
         NSLayoutConstraint.activate([
             electronics.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             electronics.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -10),
             electronics.topAnchor.constraint(equalTo: electronicLabel.bottomAnchor, constant: 6),
             electronics.heightAnchor.constraint(equalToConstant: heightE)
             ])
-        let heightR : CGFloat = CGFloat(34 + (library.information.services.resources.count * 19))
+        let heightR : CGFloat = CGFloat(36 + (library.information.services.resources.count * 21))
         NSLayoutConstraint.activate([
             resources.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 10),
             resources.trailingAnchor.constraint(equalTo: view.trailingAnchor),

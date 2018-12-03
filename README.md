@@ -10,7 +10,8 @@ Here is the Backend Repo link: https://github.com/AmartyaU/LibraryHours_IOSApp_b
 
 # Main View, Map View, and Favorites View
 
-![home_view](Screenshots/Home.png )  ![map_view](Screenshots/Map.png)    ![fav_view](Screenshots/Favorites.png)
+<img src= "https://github.com/mjs698/library-hours-hack-challenge/blob/master/Screenshots/Home.png" width = "50">
+![home_view](Screenshots/Home.png)  ![map_view](Screenshots/Map.png)    ![fav_view](Screenshots/Favorites.png)
 
 # Search Bar, Detailed View
 ![search](Screenshots/Search.png)   ![detailed](Screenshots/fancy.png)

@@ -1,4 +1,4 @@
-# library-hours-hack-challenge
+# Nooks
 
 Nooks: An app that centralizes all the information about the best study spots on Cornell's campus.
 

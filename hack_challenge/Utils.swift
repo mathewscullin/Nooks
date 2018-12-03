@@ -36,9 +36,15 @@ func getIsOpen(time: String) -> Bool{
             return hour >= realOpening && hour < realClosing + 12
         }
         if(hour > 12){
-        return hour >= realOpening && hour < realClosing + 24
+            return hour >= realOpening  && hour < realClosing + 24
         }
-g hour >= realOpening && hour < realClosing
+        if(realClosing == 12) {
+            if(hour < 12) {
+                return hour + 12 >= realOpening && hour  < realClosing - 12
+            }
+            return hour + 12 >= realOpening && hour  < realClosing
+        }
+        return hour < realClosing
     }
 
     return false
@@ -53,15 +59,18 @@ func getIsClosing(time: String) -> Bool {
     var end = time.components(separatedBy: " ")
     let closing = Int(end[3].components(separatedBy: ":")[0])
     if let realClosing = closing {
-        if(end[4] == "AM" && end[3] != "12" &&  hour > 12) {
+        if(end[4] == "AM" && realClosing == 12 &&  hour > 12) {
             return (realClosing + 12) - hour <= 1
         }
         if(end[4] == "AM" && hour > 12) {
+            print(realClosing + 24)
             return (realClosing + 24) - hour <= 1
         }
         if(end[4] == "PM" && realClosing < 12) {
         return (realClosing + 12) - hour <= 1
         }
+        print(hour)
+        print(realClosing)
         return realClosing - hour <= 1
     }
     return false

@@ -49,7 +49,7 @@ class FavoritesViewController: UIViewController, FavoriteCellDelegate, UICollect
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationItem.largeTitleDisplayMode = .always
-        self.navigationController?.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         emptyView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 1))
         emptyView.translatesAutoresizingMaskIntoConstraints = false

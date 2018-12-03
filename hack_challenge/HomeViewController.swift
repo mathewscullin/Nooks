@@ -193,6 +193,15 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
    public func loadLibraries(lib : [Library]) {
         allLibraries = lib
         searchedLibraries = allLibraries
+        if let favoriteLibraries = UserDefaults.standard.value(forKey: "favoritedLibraries") as? [String] {
+            for name in favoriteLibraries {
+                for library in searchedLibraries {
+                    if(name == library.name) {
+                        library.isFavorite = true
+                    }
+                }
+            }
+        }
         self.viewDidLoad()
         collectionView.reloadData()
     }

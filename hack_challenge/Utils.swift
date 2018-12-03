@@ -40,18 +40,7 @@ func getIsOpen(time: String) -> Bool{
         }
         return hour >= realOpening && hour < realClosing
     }
-//    let newTime = time.replacingOccurrences(of: " Extended Hours", with: "")
-//    let times = newTime.components(separatedBy: " - ")
-//
-//    let dateFormatter = DateFormatter()
-//    dateFormatter.dateFormat = "hh:mm a"
-//    dateFormatter.timeZone = TimeZone(abbreviation: "EST")
-//
-//    let opening = dateFormatter.date(from: times[0])
-//    let closing = dateFormatter.date(from: times[1])
-//    if let realOpening = opening, let realClosing = closing {
-//        return currDate >= realOpening
-//    }
+
     return false
 }
 
@@ -64,6 +53,9 @@ func getIsClosing(time: String) -> Bool {
     var end = time.components(separatedBy: " ")
     let closing = Int(end[3].components(separatedBy: ":")[0])
     if let realClosing = closing {
+        if(end[4] == "AM" && end[3] != "12" &&  hour > 12) {
+            return (realClosing + 12) - hour <= 1
+        }
         if(end[4] == "AM" && hour > 12) {
             return (realClosing + 24) - hour <= 1
         }

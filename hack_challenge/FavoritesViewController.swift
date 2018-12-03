@@ -49,6 +49,7 @@ class FavoritesViewController: UIViewController, FavoriteCellDelegate, UICollect
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationItem.largeTitleDisplayMode = .always
+        self.navigationController?.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         emptyView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 1))
         emptyView.translatesAutoresizingMaskIntoConstraints = false
@@ -109,7 +110,7 @@ class FavoritesViewController: UIViewController, FavoriteCellDelegate, UICollect
             house.widthAnchor.constraint(equalToConstant: 30)
             ])
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: emptyView.bottomAnchor, constant: padding - 1),
+            collectionView.topAnchor.constraint(equalTo: emptyView.bottomAnchor, constant: padding - 2),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
@@ -139,7 +140,7 @@ class FavoritesViewController: UIViewController, FavoriteCellDelegate, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 366, height: 114)
+        return CGSize(width: 366, height: 112)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

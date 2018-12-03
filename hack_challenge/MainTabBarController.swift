@@ -79,6 +79,16 @@ class MainTabBarController: UITabBarController  {
         }
         
     }
+    
+    public func updateTime() {
+        NetworkManager.getLibraries { (libraries) in
+            self.librariesArray = libraries
+            
+            self.homeV.loadLibraries(lib: self.librariesArray)
+            self.mapV.mapLibraries(self.librariesArray)
+            self.favoriteV.loadLibraries(lib: self.librariesArray)
+        }
+    }
 }
 
 extension UITabBarController {

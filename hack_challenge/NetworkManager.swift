@@ -11,7 +11,7 @@ import Alamofire
 
 class NetworkManager {
     
-    private static let url = "http://35.231.77.90/api/times/"
+    private static let url = "http://35.243.161.172/api/times/"
     
     static func getLibraries(completion: @escaping ([Library]) -> Void) {
         Alamofire.request(url, method: .get).validate().responseData { (response) in
@@ -22,6 +22,9 @@ class NetworkManager {
             if let libraryResponse = try? jsonDecoder.decode(finalLibraryResponse.self, from: data) {
                 // Call the function we passed in to do whatever we want
                 // to the classes array (eg. show it on screen)
+                libraryResponse.data.libraries.forEach({ (library) in
+                    library.calculateStatus()
+                })
                 completion(libraryResponse.data.libraries)
             } else {
                 print("Invalid Response Data")

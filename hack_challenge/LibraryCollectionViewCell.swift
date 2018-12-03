@@ -84,7 +84,7 @@ class LibraryCollectionViewCell: UICollectionViewCell {
             hours.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 8)
             ])
         NSLayoutConstraint.activate([
-            favorite.centerYAnchor.constraint(equalTo: contentView.topAnchor, constant: 57),
+            favorite.centerYAnchor.constraint(equalTo: contentView.topAnchor, constant: 56),
             favorite.leadingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -34),
             favorite.heightAnchor.constraint(equalToConstant: 20),
             favorite.widthAnchor.constraint(equalToConstant: 20),
@@ -110,13 +110,13 @@ class LibraryCollectionViewCell: UICollectionViewCell {
         }
         if(library.isClosing) {
             status.text = "Closing Soon"
-            status.textColor = UIColor(red:0.95, green:0.68, blue:0.12, alpha:1.0)
+            status.textColor = UIColor(red:0.95, green:0.68, blue:0.12, alpha:0.9)
         }
         if(library.times[0] == "24 Hours") {
             hours.text = "Open " + library.times[0]
         }
         else if(library.times[0] == "Closed") {
-            hours.text = "Open " + library.times[1]
+            hours.text = "Opens tomorrow"
         }
         else {
         var time = library.times[0].components(separatedBy: " ")
@@ -126,10 +126,16 @@ class LibraryCollectionViewCell: UICollectionViewCell {
         if(!library.isOpen) {
             
             status.text = "Closed"
-            status.textColor = UIColor(red:0.98, green:0.19, blue:0.19, alpha:1.0)
+            status.textColor = UIColor(red:0.82, green:0.42, blue:0.42, alpha:1.0)
             
-            var time = library.times[0].components(separatedBy: " ")
-            hours.text = "Opens at " + time[0] + " " + time[0]
+            if(library.times[1] == "24 Hours") {
+                hours.text = "Open Tomorrow 24 hours" + library.times[0]
+            }
+            else if(library.times[1] == "Closed") {
+                hours.text = "Opens in two days"
+            }
+            var time = library.times[1].components(separatedBy: " ")
+            hours.text = "Opens at " + time[0] + " " + time[1]
         }
         
     }

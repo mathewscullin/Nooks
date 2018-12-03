@@ -19,8 +19,8 @@ struct Nook : Codable {
     var loudnessLevel : String
 }
 struct Services : Codable{
-    var Electronic : [String]
-    var Resources : [String]
+    var electronic : [String]
+    var resources : [String]
 }
 struct Cafe : Codable {
     var name : String
@@ -30,7 +30,7 @@ struct Cafe : Codable {
 
 
 struct Information : Codable {
-    //var nooks : [Nook]
+    var nooks : [Nook]
     var services : Services
     var cafe : Cafe
 }
@@ -52,15 +52,19 @@ class Library: Codable {
         self.times = times
         self.information = information
         self.location = location
-        self.isOpen = getIsOpen(time: times[0])
-        self.isClosing = getIsClosing(time: times[0])
         isFavorite = false
     }
     
     enum CodingKeys: String, CodingKey {
         case name , image_url , times, information , location
     }
+    
+    func calculateStatus() {
+        self.isOpen = getIsOpen(time: times[0])
+        self.isClosing = getIsClosing(time: times[0])
+    }
 }
+
 
 struct LibraryResponse: Codable {
     var libraries: [Library]

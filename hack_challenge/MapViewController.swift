@@ -27,7 +27,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     init(libraries allLibraries : [Library]) {
-        self.libraries = allLibraries
+        self.libraries = []
         self.mapView = MKMapView()
         super.init(nibName: nil, bundle: nil)
         
@@ -91,8 +91,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         let region = MKCoordinateRegion(center: defaultCoordinate, span: span)
         mapView.setRegion(region, animated: true)
-        
-        mapLibraries(libraries)
         
     }
     

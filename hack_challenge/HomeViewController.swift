@@ -16,7 +16,7 @@ protocol FavoriteCellDelegate: class {
 class HomeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
     
     var search : UISearchBar!
-   // var searchBar: UISearchBar!
+    var refresh : UIRefreshControl!
     var collectionView: UICollectionView!
     
     var allLibraries : [Library]
@@ -26,7 +26,6 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     let padding : CGFloat = 18
     
     let defaults = UserDefaults.standard
-
     
     init(allLibraries libraries : [Library]) {
         self.allLibraries = libraries
@@ -52,6 +51,9 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         search.layer.cornerRadius = 10
         search.backgroundImage = UIImage()
         search.translatesAutoresizingMaskIntoConstraints = false
+        
+        refresh = UIRefreshControl()
+        refresh.addTarget(self, action: #selector(pulledToRefresh), for: .valueChanged)
 
         let textFieldInsideSearchBar = search.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.backgroundColor = UIColor(red:0.96, green:0.96, blue:0.96, alpha:1.0)
@@ -69,6 +71,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         collectionView.backgroundColor = .white
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.refreshControl = refresh
         collectionView.alwaysBounceVertical = true
         collectionView.register(LibraryCollectionViewCell.self, forCellWithReuseIdentifier: libraryCellReuseIdentifier)
         view.addSubview(collectionView)
@@ -119,7 +122,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 366, height: 114)
+        return CGSize(width: 366, height: 112)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -189,6 +192,12 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
         allLibraries = lib
         searchedLibraries = allLibraries
         collectionView.reloadData()
+    }
+    
+    @objc func pulledToRefresh() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.refresh.endRefreshing()
+        }
     }
 }
 

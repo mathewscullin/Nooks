@@ -27,6 +27,8 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     let defaults = UserDefaults.standard
     
+    var main : MainTabBarController!
+    
     init(allLibraries libraries : [Library]) {
         self.allLibraries = libraries
         super.init(nibName: nil, bundle: nil)
@@ -191,10 +193,13 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
    public func loadLibraries(lib : [Library]) {
         allLibraries = lib
         searchedLibraries = allLibraries
+        self.viewDidLoad()
         collectionView.reloadData()
     }
     
     @objc func pulledToRefresh() {
+        main = MainTabBarController()
+        main.updateTime()
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.refresh.endRefreshing()
         }

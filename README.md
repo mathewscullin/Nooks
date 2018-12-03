@@ -10,14 +10,11 @@ Here is the Backend Repo link: https://github.com/AmartyaU/LibraryHours_IOSApp_b
 
 # Main View, Map View, and Favorites View
 
-<img src= "https://github.com/mjs698/library-hours-hack-challenge/blob/master/Screenshots/Home.png" width = "250">
-<img src= "https://github.com/mjs698/library-hours-hack-challenge/blob/master/Screenshots/Map.png" width= "250">
-<img src= "https://github.com/mjs698/library-hours-hack-challenge/blob/master/Screenshots/Favorites.png" width= "250">
+<img src= "https://github.com/mjs698/library-hours-hack-challenge/blob/master/Screenshots/Home.png" width = "250"> <img src= "https://github.com/mjs698/library-hours-hack-challenge/blob/master/Screenshots/Map.png" width= "250"> <img src= "https://github.com/mjs698/library-hours-hack-challenge/blob/master/Screenshots/Favorites.png" width= "250">
 
 
 # Search Bar, Detailed View
-<img src= "https://github.com/mjs698/library-hours-hack-challenge/blob/master/Screenshots/Search.png" width= "400">
-<img src= "https://github.com/mjs698/library-hours-hack-challenge/blob/master/Screenshots/fancy.png" width= "400">
+<img src= "https://github.com/mjs698/library-hours-hack-challenge/blob/master/Screenshots/Search.png" width= "400"> <img src= "https://github.com/mjs698/library-hours-hack-challenge/blob/master/Screenshots/fancy.png" width= "400">
 
 
 

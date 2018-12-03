@@ -7,10 +7,14 @@ Nooks helps fellow Cornellians know the hours of the major study spaces such as 
 Nooks does not yet accomplish all of our envisioned features such as allowing the user to reserve study rooms in advance, dynamically display the hours of operation as an animation in the detailed view for any library, and displaying a bar graph within the detailed view that depicts the how busy each location is at certain times. We would also have liked to further build on Cornell's library API to include various other study locations on campus that are not considered to be libraries. 
 
 # Main View, Map View, and Favorites View
-![home_view](Screenshots/Home.png){:height="200px" width="100px"}  ![map_view](Screenshots/Map.png =250x)    ![fav_view](Screenshots/Favorites.png =250x)
+<img src="https://github.com/mjs698/library-hours-hack-challenge/blob/master/Screenshots/Favorites.png" width="100") />
 
-# Search Bar, Detailed View
-![search](Screenshots/Search.png =250x)   ![detailed](Screenshots/Detailed_view.png =250x)
+
+
+<!--![home_view](Screenshots/Home.png )  ![map_view](Screenshots/Map.png)    ![fav_view](Screenshots/Favorites.png)-->
+<!---->
+<!--# Search Bar, Detailed View-->
+<!--![search](Screenshots/Search.png)   ![detailed](Screenshots/Detailed_view.png)-->
 
 
 

@@ -7,10 +7,30 @@
 //
 
 import UIKit
+import SnapKit
+
+struct HoursData {
+    var isDropped: Bool!
+    var data: [String]!
+}
+
+enum Days {
+    case sunday
+    case monday
+    case tuesday
+    case wednesday
+    case thursday
+    case friday
+    case saturday
+}
 
 class LibraryViewController: UIViewController {
     
+    
     var library : Library
+    
+    var hoursData: HoursData!
+    var days: [Days]!
     
     var everything : UIStackView!
     
@@ -18,7 +38,7 @@ class LibraryViewController: UIViewController {
     var header : UILabel!
     var hours : UILabel!
     var actualHours : UILabel!
-    var hoursTable: UITableView!
+    var hoursTableView: UITableView!
     var clock : UIImageView!
     var nooksHeader : UILabel!
     var nooksRooms : UITextView!
@@ -55,6 +75,7 @@ class LibraryViewController: UIViewController {
         self.navigationController?.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.tintColor = .black
         
+        hoursData = HoursData(isDropped: false, data: [])
         
         header = UILabel()
         header.translatesAutoresizingMaskIntoConstraints = false
@@ -85,20 +106,20 @@ class LibraryViewController: UIViewController {
         hours.textColor = .black
         view.addSubview(hours)
         
-        actualHours = UILabel()
-        actualHours.translatesAutoresizingMaskIntoConstraints = false
-        actualHours.text = library.times[0]
-        actualHours.textAlignment = .center
-        actualHours.font = .systemFont(ofSize: 16, weight: .regular)
-        actualHours.textColor = .black
-        view.addSubview(actualHours)
+        hoursTableView = UITableView(frame: .zero, style: .grouped)
+        hoursTableView.bounces = false
+        hoursTableView.showsVerticalScrollIndicator = false
+        hoursTableView.separatorStyle = .none
+        hoursTableView.backgroundColor = .clear
+        hoursTableView.isScrollEnabled = false
+        hoursTableView.allowsSelection = false
+        hoursTableView.delegate = self
+        hoursTableView.dataSource = self
+        hoursTableView.register(LibraryHoursCell.self, forCellReuseIdentifier: LibraryHoursCell.identifier)
+        hoursTableView.register(LibraryHoursHeaderView.self, forHeaderFooterViewReuseIdentifier: LibraryHoursHeaderView.identifier)
+        view.addSubview(hoursTableView)
         
-        clock = UIImageView(frame: .zero)
-        clock.translatesAutoresizingMaskIntoConstraints = false
-        clock.image = UIImage(named: "clock")
-        clock.contentMode = .scaleAspectFit
-        clock.clipsToBounds = true
-        view.addSubview(clock)
+        days = [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday]
         
         nooksHeader = UILabel()
         nooksHeader.translatesAutoresizingMaskIntoConstraints = false
@@ -242,32 +263,41 @@ class LibraryViewController: UIViewController {
             hours.centerYAnchor.constraint(equalTo: header.bottomAnchor, constant: 25),
             hours.centerXAnchor.constraint(equalTo: view.centerXAnchor)
             ])
-        NSLayoutConstraint.activate([
-            actualHours.centerYAnchor.constraint(equalTo: hours.bottomAnchor, constant: 20),
-            actualHours.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-            ])
-        
-        NSLayoutConstraint.activate([
-            clock.centerYAnchor.constraint(equalTo: hours.bottomAnchor, constant: 20),
-            clock.centerXAnchor.constraint(equalTo: actualHours.leadingAnchor, constant: -15),
-            clock.heightAnchor.constraint(equalToConstant: 16),
-            clock.widthAnchor.constraint(equalToConstant: 16)
-            ])
+        hoursTableView.snp.updateConstraints {make in
+            make.centerX.width.equalToSuperview()
+            make.top.equalTo(hours.snp.bottom).offset(12)
+            if (hoursData.isDropped) {
+                make.height.equalTo(181)
+            } else {
+                make.height.equalTo(27)
+            }
+        }
+//        NSLayoutConstraint.activate([
+//            actualHours.centerYAnchor.constraint(equalTo: hours.bottomAnchor, constant: 20),
+//            actualHours.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+//            ])
+//
+//        NSLayoutConstraint.activate([
+//            clock.centerYAnchor.constraint(equalTo: hours.bottomAnchor, constant: 20),
+//            clock.centerXAnchor.constraint(equalTo: actualHours.leadingAnchor, constant: -15),
+//            clock.heightAnchor.constraint(equalToConstant: 16),
+//            clock.widthAnchor.constraint(equalToConstant: 16)
+//            ])
         NSLayoutConstraint.activate([
             nooksHeader.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            nooksHeader.centerYAnchor.constraint(equalTo: actualHours.bottomAnchor, constant: 24)
+            nooksHeader.centerYAnchor.constraint(equalTo: hoursTableView.bottomAnchor, constant: 24)
             ])
         if(library.information.nooks.count == 0) {
             NSLayoutConstraint.activate([
                 nooksRooms.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
                 nooksRooms.trailingAnchor.constraint(equalTo: view.centerXAnchor , constant: 70),
-                nooksRooms.topAnchor.constraint(equalTo: actualHours.bottomAnchor, constant: 12),
+                nooksRooms.topAnchor.constraint(equalTo: hoursTableView.bottomAnchor, constant: 12),
                 nooksRooms.heightAnchor.constraint(equalToConstant: 0)
                 ])
             NSLayoutConstraint.activate([
                 nooksLevels.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 70),
                 nooksLevels.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-                nooksLevels.topAnchor.constraint(equalTo: actualHours.bottomAnchor, constant: 12),
+                nooksLevels.topAnchor.constraint(equalTo: hoursTableView.bottomAnchor, constant: 12),
                 nooksLevels.heightAnchor.constraint(equalToConstant: 0)
                 ])
         }
@@ -335,8 +365,8 @@ class LibraryViewController: UIViewController {
             NSLayoutConstraint.activate([
                 clock2.topAnchor.constraint(equalTo: foodName.bottomAnchor, constant: 9),
                 clock2.centerXAnchor.constraint(equalTo: foodTime.leadingAnchor, constant: -15),
-                clock2.heightAnchor.constraint(equalToConstant: 18),
-                clock2.widthAnchor.constraint(equalToConstant: 18)
+                clock2.heightAnchor.constraint(equalToConstant: 14),
+                clock2.widthAnchor.constraint(equalToConstant: 14)
                 ])
             NSLayoutConstraint.activate([
                 brb.topAnchor.constraint(equalTo: foodName.bottomAnchor, constant: 8),
@@ -348,8 +378,39 @@ class LibraryViewController: UIViewController {
         
     }
     
+    @objc func dropHours( sender: UITapGestureRecognizer) {
+        hoursTableView.beginUpdates()
+        var modifiedIndices: [IndexPath] = []
+        for i in 0..<6 {
+            modifiedIndices.append(IndexPath(row: i, section: 0))
+        }
+        
+        if (hoursData.isDropped) {
+            hoursData.isDropped = false
+            hoursTableView.deleteRows(at: modifiedIndices, with: .fade)
+            (hoursTableView.headerView(forSection: 0) as! LibraryHoursHeaderView).downArrow.image = .none
+            (hoursTableView.headerView(forSection: 0) as! LibraryHoursHeaderView).rightArrow.image = #imageLiteral(resourceName: "right")
+            
+            UIView.animate(withDuration: 0.3) {
+                self.setUpConstraints()
+                self.view.layoutIfNeeded()
+            }
+        } else {
+            hoursData.isDropped = true
+            hoursTableView.insertRows(at: modifiedIndices, with: .fade)
+            (hoursTableView.headerView(forSection: 0) as! LibraryHoursHeaderView).downArrow.image = #imageLiteral(resourceName: "down")
+            (hoursTableView.headerView(forSection: 0) as! LibraryHoursHeaderView).rightArrow.image = .none
+            
+            UIView.animate(withDuration: 0.5) {
+                self.setUpConstraints()
+                self.view.layoutIfNeeded()
+            }
+        }
+        hoursTableView.endUpdates()
+
+    }
     
-   override func willMove(toParent parent: UIViewController?) {
+    override func willMove(toParent parent: UIViewController?) {
         self.navigationController?.navigationBar.prefersLargeTitles = true
     }
     
@@ -357,7 +418,7 @@ class LibraryViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
 }
 
 extension String {
@@ -371,5 +432,89 @@ extension String {
         let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
         let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
         return ceil(boundingBox.width)
+    }
+}
+
+extension LibraryViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == hoursTableView {
+            if (hoursData.isDropped) {
+                return 6
+            } else {
+                return 0
+            }
+        } else {
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if tableView == hoursTableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: LibraryHoursCell.identifier, for: indexPath) as! LibraryHoursCell
+            let date = Date()
+            let day = (Calendar.current.component(.weekday, from: date) - 1 + indexPath.row + 1) % 7
+            
+            cell.hoursLabel.text = library.times[indexPath.row]
+            
+            switch days[day] {
+            case .sunday:
+                cell.dayLabel.text = "Su"
+            case .monday:
+                cell.dayLabel.text = "M"
+            case .tuesday:
+                cell.dayLabel.text = "T"
+            case .wednesday:
+                cell.dayLabel.text = "W"
+            case .thursday:
+                cell.dayLabel.text = "Th"
+            case .friday:
+                cell.dayLabel.text = "F"
+            case .saturday:
+                cell.dayLabel.text = "Sa"
+            }
+            
+            return cell
+        } else {
+            return UITableViewCell()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if tableView == hoursTableView {
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: LibraryHoursHeaderView.identifier) as! LibraryHoursHeaderView
+            
+            header.hoursLabel.text = library.times[0]
+            
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(self.dropHours(sender:) ))
+            header.addGestureRecognizer(gesture)
+            
+            return header
+        } else {
+            return nil
+        }
+    }
+}
+
+// MARK: TableViewDelegate
+extension LibraryViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if tableView == hoursTableView {
+            return indexPath.row == 5 ? 19 : 25
+        } else {
+            return 112
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if tableView == hoursTableView {
+            if (hoursData.isDropped) {
+                return 25
+            } else {
+                return 19
+            }
+        } else {
+            return 0
+        }
     }
 }

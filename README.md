@@ -13,7 +13,8 @@ Here is the Backend Repo link: https://github.com/AmartyaU/LibraryHours_IOSApp_b
 ![home_view](Screenshots/Home.png )  ![map_view](Screenshots/Map.png)    ![fav_view](Screenshots/Favorites.png)
 
 # Search Bar, Detailed View
-![search](Screenshots/Search.png)   ![detailed](Screenshots/Detailed_view.png)
+![search](Screenshots/Search.png)   ![detailed](Screenshots/fancy.png)
+
 
 
 

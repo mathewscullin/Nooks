@@ -61,6 +61,7 @@ class MainTabBarController: UITabBarController  {
     }
     
     public func updateTime() {
+            self.librariesArray = []
         NetworkManager.getLibraries { (libraries) in
             self.librariesArray = libraries
             

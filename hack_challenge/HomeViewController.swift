@@ -209,7 +209,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource, UICollec
     @objc func pulledToRefresh() {
         main = MainTabBarController()
         main.updateTime()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.refresh.endRefreshing()
         }
     }

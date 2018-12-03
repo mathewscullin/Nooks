@@ -27,26 +27,6 @@ class MainTabBarController: UITabBarController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let abit = Cafe.init(name: "Abit Libe Cafe", time: "8:00 AM - 12:00 AM", brb: true)
-//        let ser = Services.init(Electronic: ["Printers", "Chargers"], Resources: ["Books", "Resources"])
-//        let nook = Nook.init(roomName: "Asia Reading Room", loudnessLevel: "Quiet")
-//        let info1 = Information.init(nooks: [nook], services: ser, cafe: abit)
-//        let loc1 = Location.init(coordinates: [42.448078, -76.484291], campus: "Central")
-//        let loc2 = Location.init(coordinates: [42.448068, -76.485291], campus: "Central")
-//        let loc3 = Location.init(coordinates: [42.448068, -76.476291], campus: "Ag Quad")
-//        let loc4 = Location.init(coordinates: [42.4574, -76.4822], campus: "North")
-//        let olin = Library(name: "Olin Library", image_url: "olin", times: ["8:00 AM - 2:00 AM"], information: info1, location: loc1)
-//        let uris = Library(name: "Uris Library", image_url: "uris", times: ["8:00 AM - 1:00 AM"], information: info1, location: loc2)
-//        let mann = Library(name: "Mann Library", image_url: "mann", times: ["10:00 AM - 7:00 AM"], information: info1, location: loc3)
-//        let africana = Library(name: "Africana Library", image_url: "africana", times: ["11:00 AM - 10:00 PM"], information: info1, location: loc4)
-//        olin.isOpen = olin.isOpen(time: olin.times[0])
-//        olin.isClosing = olin.isClosing(time: olin.times[0])
-//
-//        uris.isOpen = uris.isOpen(time: uris.times[0])
-//        uris.isClosing = uris.isClosing(time: uris.times[0])
-        
-       // librariesArray = [olin, uris, mann, africana]
-        
         NetworkManager.getLibraries { (libraries) in
             self.librariesArray = libraries
             

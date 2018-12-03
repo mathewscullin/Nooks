@@ -314,7 +314,7 @@ class LibraryViewController: UIViewController {
             ])
         
         NSLayoutConstraint.activate([
-            line.topAnchor.constraint(equalTo: servicesLabel.bottomAnchor, constant: 32),
+            line.topAnchor.constraint(equalTo: servicesLabel.bottomAnchor, constant: 42),
             line.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             line.widthAnchor.constraint(equalToConstant: 1),
             line.heightAnchor.constraint(equalToConstant: max(heightE, heightR) - 24)

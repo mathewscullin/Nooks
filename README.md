@@ -6,6 +6,10 @@ Nooks helps fellow Cornellians know the hours of the major study spaces such as 
 
 Nooks does not yet accomplish all of our envisioned features such as allowing the user to reserve study rooms in advance, dynamically display the hours of operation as an animation in the detailed view for any library, and displaying a bar graph within the detailed view that depicts the how busy each location is at certain times. We would also have liked to further build on Cornell's library API to include various other study locations on campus that are not considered to be libraries. 
 
+iOS: Mathew Scullin, Andrew Wang
+Backend: Amartya Utkarsh
+Design: Amanda Yang
+
 Here is the Backend Repo link: https://github.com/AmartyaU/LibraryHours_IOSApp_backend
 
 # Main View, Map View, and Favorites View
